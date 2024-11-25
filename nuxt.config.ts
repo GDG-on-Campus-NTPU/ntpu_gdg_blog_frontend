@@ -11,9 +11,14 @@ else {
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@element-plus/nuxt', '@nuxtjs/tailwindcss'],
+  modules: ['@element-plus/nuxt', '@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', 'google-fonts'],
   routeRules: {
     '/api/**': { proxy: { to: `${apiUrl}/**`, fetchOptions: {redirect: 'manual' } } }
+  },
+  googleFonts: {
+    families: {
+        'Noto+Sans+TC': [400, 700],
+    },
   },
   runtimeConfig: {
     public: {

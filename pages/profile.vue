@@ -30,10 +30,11 @@ const { data: userInfo } = await useFetch<{ name: string, email: string }>('/api
 const logout = async () => {
     await $fetch('/api/logout', {
         method: 'POST'
-    })
-    reloadNuxtApp({
-        path: '/'
-    })
+    });
+
+    await ((useNuxtApp().$refreshMenu) as Function | undefined)?.();
+
+    await useRouter().push('/');
 }
 
 const name = ref(userInfo.value?.name)
