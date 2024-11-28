@@ -52,9 +52,7 @@ const { data: menuItems, refresh: refreshMenuItems } = useFetch('/api/login/chec
   }
 })
 
-useNuxtApp().provide('refreshMenu', async () => {
-  await refreshMenuItems();
-})
+useNuxtApp().provide('refreshMenu', refreshMenuItems)
 
 
 </script>
