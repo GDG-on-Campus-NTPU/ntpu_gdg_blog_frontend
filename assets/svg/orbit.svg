@@ -1,0 +1,107 @@
+<svg width="481" height="413" viewBox="0 0 481 413" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<path id="orbit1" d="M26.1002 124.371C26.3156 119.108 29.725 115.242 35.9125 112.841C42.0902 110.444 50.9548 109.543 61.8818 110.128C83.7302 111.298 113.718 118.4 146.661 131.17C179.603 143.94 209.227 159.947 230.487 175.488C241.12 183.261 249.635 190.899 255.426 197.936C261.227 204.984 264.218 211.331 264.003 216.594C263.787 221.857 260.378 225.723 254.191 228.124C248.013 230.522 239.148 231.422 228.221 230.837C206.373 229.667 176.385 222.565 143.443 209.795C110.5 197.025 80.8766 181.018 59.6164 165.477C48.9835 157.704 40.4685 150.066 34.6769 143.029C28.8761 135.981 25.8848 129.634 26.1002 124.371Z" stroke="black" filter="url(#shadow)" />
+<path id="orbit2" d="M26.5014 126.578C26.7654 120.127 31.0391 115.441 38.7608 112.582C46.4711 109.727 57.5302 108.731 71.1541 109.566C98.396 111.237 135.785 120.225 176.86 136.147C217.934 152.07 254.88 171.898 281.405 191.071C294.671 200.659 305.304 210.065 312.544 218.715C319.794 227.378 323.556 235.179 323.292 241.63C323.028 248.081 318.755 252.767 311.033 255.626C303.323 258.481 292.263 259.478 278.64 258.642C251.398 256.972 214.008 247.983 172.934 232.061C131.86 216.138 94.9139 196.31 68.3884 177.138C55.1228 167.549 44.4894 158.144 37.25 149.493C29.9999 140.83 26.2374 133.029 26.5014 126.578Z" stroke="black" filter="url(#shadow)" />
+<path id="orbit3" d="M25.2307 130.112C25.5568 122.147 30.6518 116.321 39.7862 112.688C48.9117 109.058 61.9893 107.651 78.0883 108.444C110.281 110.03 154.448 120.405 202.955 139.209C251.461 158.013 295.085 181.67 326.4 204.703C342.06 216.221 354.616 227.565 363.164 238.046C371.72 248.537 376.186 258.069 375.86 266.035C375.534 274 370.439 279.825 361.305 283.459C352.179 287.089 339.102 288.496 323.003 287.703C290.81 286.117 246.643 275.741 198.136 256.937C149.63 238.134 106.006 214.477 74.6911 191.444C59.0312 179.926 46.4754 168.582 37.9275 158.101C29.3712 147.609 24.9047 138.077 25.2307 130.112Z" stroke="black" filter="url(#shadow)" />
+<path id="orbit4" d="M25.8649 129.918C26.2326 120.932 31.9798 114.372 42.2576 110.284C52.5267 106.199 67.2391 104.617 85.3454 105.509C121.552 107.292 171.224 118.962 225.773 140.108C280.323 161.254 329.383 187.859 364.603 213.764C382.215 226.719 396.341 239.48 405.96 251.274C415.587 263.079 420.626 273.82 420.259 282.806C419.891 291.792 414.144 298.352 403.866 302.44C393.597 306.525 378.884 308.107 360.778 307.215C324.571 305.431 274.899 293.762 220.35 272.616C165.801 251.47 116.74 224.865 81.5205 198.96C63.9079 186.005 49.7825 173.244 40.1634 161.45C30.5361 149.645 25.4971 138.904 25.8649 129.918Z" stroke="black" filter="url(#shadow)" />
+
+<defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="-4" dy="2" stdDeviation="3" flood-color="black" flood-opacity="0.5" />
+    </filter>
+
+    <radialGradient id="planetGradient1" cx="75%" cy="50%" r="75%" fx="70%" fy="60%">
+      <stop offset="0%" stop-color="#FFF0D1" />
+      <stop offset="100%" stop-color="#cc6600" />
+    </radialGradient>
+
+    <radialGradient id="planetGradient2" cx="75%" cy="50%" r="75%" fx="70%" fy="60%">
+      <stop offset="0%" stop-color="#FFF0D1" />
+      <stop offset="100%" stop-color="#F1C46A" />
+    </radialGradient>
+
+    <radialGradient id="planetGradient3" cx="75%" cy="50%" r="75%" fx="70%" fy="60%">
+      <stop offset="0%" stop-color="#9EDAFF" />
+      <stop offset="100%" stop-color="#214570" />
+    </radialGradient>
+
+    <radialGradient id="planetGradient4" cx="75%" cy="50%" r="75%" fx="70%" fy="60%">
+      <stop offset="0%" stop-color="#fcf6c5" />
+      <stop offset="100%" stop-color="#fff07a" />
+    </radialGradient>
+
+    <filter id="shadow1" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="-2" dy="2" stdDeviation="3" flood-color="black" flood-opacity="0.5" />
+    </filter>
+
+    <filter id="shadow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="-1" dy="1" stdDeviation="1" flood-color="grey" />
+    </filter>
+
+    <clipPath id="halfCircleClip">
+      <rect width="50.012" height="27" />
+    </clipPath>
+</defs>
+
+<circle r="12" fill="url(#planetGradient1)" filter="url(#shadow1)" >
+    <animateMotion repeatCount="indefinite" dur="5s">
+      <mpath href="#orbit1"/>
+    </animateMotion>
+    
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values="1;1.4;1"
+      keyTimes="0;0.5;1"
+      dur="5s"
+      repeatCount="indefinite" />
+</circle>
+
+<circle r="15.9129" fill="url(#planetGradient2)" filter="url(#shadow1)" >
+    <animateMotion repeatCount="indefinite" dur="6s">
+      <mpath href="#orbit2"/>
+    </animateMotion>
+
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values=".9;1.1;.9"
+      keyTimes="0;0.5;1"
+      dur="6s"
+      repeatCount="indefinite" />
+</circle>
+
+<circle r="15.9129" fill="url(#planetGradient3)" filter="url(#shadow1)" >
+    <animateMotion repeatCount="indefinite" dur="6.5s">
+      <mpath href="#orbit3"/>
+    </animateMotion>
+
+    <animateTransform
+    attributeName="transform"
+    type="scale"
+    values=".9;1.1;.9"
+    keyTimes="0;0.5;1"
+    dur="6.5s"
+    repeatCount="indefinite" />
+</circle>
+
+<g filter="url(#shadow1)" >
+    <animateMotion repeatCount="indefinite" dur="7s">
+      <mpath href="#orbit4"/>
+    </animateMotion>
+
+
+    <animateTransform
+      attributeName="transform"
+      type="scale"
+      values=".8;1.2;.8"
+      keyTimes="0;0.5;1"
+      dur="7s"
+      repeatCount="indefinite" />
+
+    <circle r="25.006" fill="url(#planetGradient4)"/>
+    <ellipse cx="-20" cy="15" rx="45" ry="10" stroke="#57872E" stroke-width="3" fill="none" transform="rotate(15 60 100) translate(-5, 5)"  filter="url(#shadow2)" />
+    <circle cx="25.006" cy="25.006" r="25.006" fill="url(#planetGradient4)" clip-path="url(#halfCircleClip)" transform="translate(-25.006, -25.006)" />
+</g>
+
+</svg>
