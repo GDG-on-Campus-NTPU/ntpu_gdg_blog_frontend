@@ -1,9 +1,11 @@
 <template>
-  <section>
-    <div class="text">
-      <h2>我們致力於打造一個，</h2>
-      <h2>文組入門的科技社群平台，</h2>
-      <h2>給予開發者交流討論的環境。</h2>
+  <div id="platform">
+    <div class="slogan">
+      <h2>
+        我們致力於打造一個，<br />
+        文組入門的科技社群平台，<br />
+        給予開發者交流討論的環境。
+      </h2>
     </div>
     <div class="social-links">
       <div v-for="(link, index) in links" :key="index" class="social-link-item">
@@ -12,7 +14,7 @@
         /></a>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -28,26 +30,20 @@ const links = [
 </script>
 
 <style scoped>
-section {
+#platform {
+  display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  height: 60vh;
-}
-h2 {
   text-align: center;
-}
-.text {
-  margin-top: 5rem;
+  margin-top: 8rem;
 }
 .social-links {
   align-items: center;
-  margin: 0 auto;
+  margin: 5rem auto;
   justify-content: center;
   display: grid;
   width: 90%;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  margin-top: 3rem;
 }
 .social-links div {
   margin: 0 auto;

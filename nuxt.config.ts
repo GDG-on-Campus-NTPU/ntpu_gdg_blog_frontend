@@ -15,10 +15,10 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     'google-fonts',
-    '@nuxt/content',
-    '@nuxt/icon',
+    'vue3-carousel-nuxt',
+    '@samk-dev/nuxt-vcalendar'
   ],
-  css: ['@/assets/css/styles.css'],
+  css: ['@/assets/css/main.css'],
   routeRules: {
     '/api/**': {
       proxy: { to: `${apiUrl}/**`, fetchOptions: { redirect: 'manual' } },

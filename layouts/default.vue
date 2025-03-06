@@ -1,32 +1,32 @@
 <template>
-  <div class="layout">
-    <nav :class="{ 'navbar--hidden': !showNavbar }">
-      <NuxtLink to="/" @click="scrollToTop">
-        <img class="logo" src="/icons/gdg_logo.svg" alt="GDG Logo" />
-      </NuxtLink>
-      <div class="nav-items">
-        <ul>
-          <li><NuxtLink to="/about">關於我們</NuxtLink></li>
-          <li><NuxtLink to="/projects">歷年專案</NuxtLink></li>
-          <li><NuxtLink to="/events">課程活動</NuxtLink></li>
-          <li><NuxtLink to="/contact">聯絡我們</NuxtLink></li>
-        </ul>
-        <NuxtLink v-if="true" to="/profile" class="button-link"
-          >個人檔案</NuxtLink
-        >
-        <NuxtLink v-else to="/login" class="button-link">登入</NuxtLink>
-      </div>
-    </nav>
-
-    <div class="page-content">
-      <NuxtPage keepalive />
-    </div>
-
+  <div id="default-layout">
+    <header>
+      <nav :class="{ 'navbar--hidden': !showNavbar }">
+        <NuxtLink to="/" @click="scrollToTop">
+          <IconsLogoGDG class="logo-header" />
+        </NuxtLink>
+        <div class="nav-items">
+          <ul>
+            <li><NuxtLink to="/about">關於我們</NuxtLink></li>
+            <li><NuxtLink to="/projects">歷年專案</NuxtLink></li>
+            <li><NuxtLink to="/events">課程活動</NuxtLink></li>
+            <li><NuxtLink to="/contact">聯絡我們</NuxtLink></li>
+          </ul>
+          <NuxtLink v-if="false" to="/profile" class="auth-links"
+            >個人檔案</NuxtLink
+          >
+          <NuxtLink v-else to="/login" class="auth-links">登入</NuxtLink>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
     <footer>
-      <img src="/icons/gdg_logo.svg" alt="GDG Logo" />
+      <IconsLogoGDG class="logo-footer" />
       <div>
-        <p>Google 學生開發者社群</p>
         <p>國立臺北大學</p>
+        <p>Google 學生開發者社群</p>
       </div>
     </footer>
   </div>
@@ -71,10 +71,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.layout {
+#default-layout {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 nav {
   display: flex;
@@ -82,26 +82,27 @@ nav {
   padding: 1.5rem;
   gap: 2rem;
   width: 100%;
-  background-color: white;
+  background: white;
   position: fixed;
   transform: translate3d(0, 0, 0);
   transition: 0.3s ease;
   z-index: 1;
 }
-nav.navbar--hidden {
+.navbar--hidden {
   transform: translate3d(0, -100%, 0);
 }
-.logo {
+.logo-header {
   height: 3rem;
   width: auto;
 }
 .nav-items {
   display: flex;
   flex-grow: 1;
-  background-color: black;
+  background: black;
   border-radius: var(--border-radius);
   padding: 0.5rem 2.5rem;
   justify-content: space-between;
+  text-wrap: nowrap;
 }
 .nav-items ul {
   display: flex;
@@ -116,10 +117,10 @@ nav a:hover {
   color: #f1c46a;
   transition: color 0.2s;
 }
-.button-link {
+.auth-links {
   display: inline-block;
   padding: 0.5rem 1.5rem;
-  background-color: white;
+  background: white;
   color: black;
   font-size: 1rem;
   font-weight: bold;
@@ -127,25 +128,25 @@ nav a:hover {
   text-align: center;
   cursor: pointer;
 }
-.button-link:hover {
+.auth-links:hover {
   color: black;
-  background-color: white;
   transform: scale(1.05);
 }
-.page-content {
-  margin-top: 5%;
-  flex-grow: 1;
-  padding: 1.5rem 10rem;
+main {
+  margin-top: 5rem;
+  padding: 0 12%;
+  flex-grow: 1; /**/
 }
 footer {
   display: flex;
-  gap: 2rem;
+  margin-top: auto;
   align-items: center;
-  font-weight: bold;
+  gap: 2rem;
   padding: 1rem 3rem;
-  background-color: rgb(212 212 216);
+  font-weight: bold;
+  background: rgb(212 212 216);
 }
-footer img {
+.logo-footer {
   height: 2.5rem;
   width: auto;
   background-color: white;

@@ -25,7 +25,23 @@
     </div>
     <section class="summary">
       <h2>講座內容摘要</h2>
-      <div></div>
+      <article>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet
+          aperiam minima unde nemo harum quam maxime optio quos corrupti. Eum
+          sapiente facere nemo, laborum ullam non cum fuga quas eveniet harum
+          molestiae minus atque vel ratione illo quia, iure commodi dicta porro
+          excepturi quam. Facere, commodi corrupti ipsam neque totam
+          reprehenderit laboriosam laborum veniam est quo, repellat saepe
+          impedit labore?
+        </p>
+        <div class="reaction">
+          <IconsHeart class="icons-heart" @click="inc_likes" />
+          <span>{{ likes }}</span>
+          <IconsStar class="icons-star" @click="inc_saved" />
+          <span>{{ saved }}</span>
+        </div>
+      </article>
     </section>
     <div class="images">
       <h2>活動花絮照片</h2>
@@ -39,10 +55,25 @@
         </div>
       </div>
     </div>
+    <div class="comments">
+      <h2>留言區</h2>
+      <div></div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const likes = ref(0);
+const saved = ref(0);
+
+const inc_likes = () => {
+  likes.value++;
+};
+
+const inc_saved = () => {
+  saved.value++;
+};
+
 const title = `平面設計跨領域\nUI/UX轉職經驗談`;
 const details = `講座日期：10/17 (四)\n地點：北大商院 209`;
 const splitTitle = ref(title.split('\n'));
@@ -108,15 +139,40 @@ const images = ['/img/workshop.png', '/img/workshop.png', '/img/workshop.png'];
 .summary h2 {
   align-self: flex-start;
 }
-.summary div {
+.summary article {
+  flex-grow: 1;
   background-color: #fff3db;
-  width: 100%;
-  height: 100%;
   margin: 1rem 0 5rem 0;
   border-radius: var(--border-radius);
   box-shadow: 3rem 3rem rgb(255, 243, 219, 0.41);
+  position: relative;
+  padding: 2rem 3rem;
 }
-
+.reaction {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 3rem;
+  align-items: center;
+}
+.reaction span {
+  font-size: 1.5rem;
+}
+.icons-heart,
+.icons-star {
+  stroke: black;
+  stroke-width: 1px;
+}
+.icons-heart :hover {
+  transform: scale(1.05);
+  fill: #e05041;
+}
+.icons-star :hover {
+  transform: scale(1.05);
+  fill: #f5c444;
+}
 .images {
   flex-direction: column;
 }
@@ -127,5 +183,12 @@ const images = ['/img/workshop.png', '/img/workshop.png', '/img/workshop.png'];
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
   margin: 3rem auto;
+}
+.comments {
+  margin: 5rem 0;
+  height: 50vh;
+}
+.comments div {
+  flex-grow: 1;
 }
 </style>

@@ -1,0 +1,44 @@
+/* global styling */
+:root {
+  --border-radius: 3rem;
+  font-family: 'Cabinet Grotesk';
+}
+h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+section {
+  display: flex;
+  min-height: 80vh;
+  align-items: center;
+  margin: 3rem 0;
+}
+
+/* custom styling class */
+.box-design {
+  border: 1px solid black;
+  border-radius: var(--border-radius);
+  box-shadow: 0 1rem black;
+}
+.line-decoration-left {
+  width: 75%;
+  border: 0.5px grey solid;
+  margin: 20px;
+}
+.line-decoration-right {
+  width: 75%;
+  border: 0.5px grey solid;
+  margin: 20px;
+  align-self: flex-end;
+}
+
+.no-wrap {
+  text-wrap: nowrap;
+}
+.side-padding {
+  padding: 0 10%;
+}
