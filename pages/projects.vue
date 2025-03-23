@@ -1,120 +1,88 @@
 <template>
-  <div id="projects">
-    <section class="overview">
-      <h1>眾多的專案成果</h1>
-      <h1>猜你想看...</h1>
-      <div class="categories">
-        <div class="category-year">
-          <h2>年份分類</h2>
-          <ul>
-            <a href="#year2024"><li>2024</li></a>
-            <a href="#year2023"><li>2023</li></a>
-          </ul>
-        </div>
-        <div class="category-type">
-          <h2>類型分類</h2>
-          <ul>
-            <a href="#Web"><li>Web</li></a>
-            <a href="#AI"><li>AI</li></a>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section
-      v-for="(articles, category) in categories"
-      :key="category"
-      class="articles-by-categories"
-    >
-      <div class="section-header">
-        <h1 :id="category">{{ category.replace('year', '') }}</h1>
-        <div>
-          <IconsThumbUp />
-          <IconsHeart />
-          <IconsBookmark />
-        </div>
-      </div>
-      <ArticleCarousel :articles="articles" class="articles" />
-    </section>
+  <div>
+    <h1>
+      每個專案都是我們團隊合作、創新思維和學習熱情的結晶。
+      開發過程中都充滿挑戰，也充滿成就感。
+      一起來看看我們所做的工作，或許下個項目就是屬於你的！
+    </h1>
+    <div class="projects-grid">
+      <article
+        class="projects-grid-item"
+        v-for="project in projects"
+        :key="project.title"
+      >
+        <img src="assets/img/project.jpg" alt="project thumbnail" />
+        <p>{{ project.category }}</p>
+        <h2>{{ project.title }}</h2>
+      </article>
+    </div>
   </div>
 </template>
-
 <script setup lang="ts">
-/* articles by categories */
-const categories = {
-  year2024: [
-    { title: '2024 Project 1', description: 'Description for project 1' },
-    { title: '2024 Project 2', description: 'Description for project 2' },
-  ],
-  year2023: [
-    { title: '2023 Project 1', description: 'Description for project 1' },
-    { title: '2023 Project 2', description: 'Description for project 2' },
-  ],
-  Web: [
-    { title: 'Web Project 1', description: 'Description for web project 1' },
-    { title: 'Web Project 2', description: 'Description for web project 2' },
-  ],
-  AI: [
-    { title: 'AI Project 1', description: 'Description for AI project 1' },
-    { title: 'AI Project 2', description: 'Description for AI project 2' },
-  ],
-};
+const projects = [
+  {
+    title: '和泰汽車數據分析',
+    category: '業界合作',
+  },
+  {
+    title: 'Linux Odyssey',
+    category: '跨校合作',
+  },
+  {
+    title: 'ATK TaiSoc',
+    category: '開源合作',
+  },
+  {
+    title: '社團官網',
+    category: '社團提案',
+  },
+  {
+    title: 'HoopUp',
+    category: '社團提案',
+  },
+  {
+    title: 'LINE Bot',
+    category: '社團提案',
+  },
+  {
+    title: '法規問答小幫手',
+    category: '社團提案',
+  },
+];
 </script>
-
 <style scoped>
-#projects {
-  display: flex;
-  flex-direction: column;
-}
-.overview {
-  flex-direction: column;
-}
 h1 {
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  margin: 5rem;
 }
-.categories {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 3rem 0 5rem;
 }
-.category-year,
-.category-type {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+.projects-grid-item {
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  border: solid 1px grey;
 }
-ul {
-  margin-top: 2rem;
+.projects-grid-item:hover {
+  color: white;
+  background: black;
+  transition: 0.5s;
+  cursor: pointer;
 }
-.categories li {
+img {
+  border-radius: var(--border-radius);
+}
+h2 {
+  margin-top: 1.5rem;
   font-size: 1.5rem;
   font-weight: bold;
-  background-color: #fff3db;
-  border-radius: var(--border-radius);
-  margin-bottom: 2rem;
-  padding: 0.5rem 3rem;
+  text-align: center;
 }
-.articles-by-categories {
-  flex-direction: column;
-}
-.section-header {
-  width: 100%;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 0 1rem;
-}
-.section-header div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  font-size: 1.5rem;
-}
-.section-header div :hover {
-  transform: scale(1.05);
-}
-.articles {
-  position: relative;
-  z-index: 0;
+p {
+  margin: 1.5rem;
+  text-align: left;
 }
 </style>
