@@ -7,6 +7,8 @@
     :modules="[Pagination, Autoplay]"
     :pagination="{ clickable: true }"
     :autoplay="{ delay: 3000, disableOnInteraction: false }"
+    :slides-per-view="numSlides"
+    :space-between="10"
     :loop="true"
   >
     <SwiperSlide v-for="(image, index) in images" :key="index">
@@ -21,19 +23,17 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-defineProps(['images']);
+defineProps(['images', 'numSlides']);
 </script>
 
 <style scoped>
 .swiper {
   position: relative;
   z-index: 0;
-  max-width: 40vw;
 }
 .swiper-slide {
   display: flex;
   justify-content: center;
-  border-radius: var(--border-radius);
 }
 .swiper-pagination-bullet {
   background: #fff;

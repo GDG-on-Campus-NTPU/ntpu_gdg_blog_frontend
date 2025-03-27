@@ -1,45 +1,25 @@
+<!----------------------------------->
+<!-- This defines the events page. -->
+<!----------------------------------->
+
 <template>
   <div id="events">
-    <div class="img-slider">
-      <Carousel v-bind="config">
-        <Slide v-for="image in images" :key="image.id">
-          <img :src="image.url" alt="image" />
-        </Slide>
-        <template #addons>
-          <Navigation />
-        </template>
-      </Carousel>
-    </div>
-    <h1>這些課程和活動，都是我們一起創造的精彩時刻，期待你也能加入！</h1>
-    <div class="events-grid">
-      <article
-        class="events-grid-item"
-        v-for="event in events"
-        :key="event.title"
-      >
-        <h2>{{ event.title }}</h2>
-        <p>{{ event.description }}</p>
-        <ul class="event-tags">
-          <li v-for="tag in event.tags" :key="tag">{{ tag }}</li>
-        </ul>
-      </article>
+    <ImageCarousel :images="images" :numSlides="4" class="my-20" />
+    <h1 class="mx-16 my-8">
+      這些課程和活動，都是我們一起創造的精彩時刻，期待你也能加入！
+    </h1>
+    <div class="grid grid-cols-3 gap-6 my-16">
+      <EventCard v-for="event in events" :key="event.title" :event="event" />
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-/* image slider */
+<script setup>
 const images = Array.from({ length: 10 }, (_, index) => ({
   id: index + 1,
   url: `https://picsum.photos/800/600?random=${index + 1}`,
 }));
-const config = {
-  itemsToShow: 4,
-  gap: 5,
-  /*autoplay: 4000,*/
-  wrapAround: true,
-  pauseAutoplayOnHover: true,
-};
+
 const events = [
   {
     title: 'Google Cloud Study Jam: Gen AI 特別篇',
@@ -98,58 +78,3 @@ const events = [
   },
 ];
 </script>
-
-<style scoped>
-.img-slider {
-  position: relative;
-  z-index: 0;
-  height: 300px;
-  display: flex;
-  align-items: center;
-}
-h1 {
-  margin: 0 5rem 5rem;
-}
-.events-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin: 3rem 0 5rem;
-}
-.events-grid-item {
-  font-family: '__Inter_3e83c2,__Inter_Fallback_3e83c2';
-  background: black;
-  border-radius: var(--border-radius);
-  aspect-ratio: 1/1;
-  padding: 2rem;
-  color: white;
-  position: relative;
-}
-.events-grid-item:hover {
-  background: lightgray;
-  transition: 0.5s;
-  color: black;
-  border: solid 1px black;
-}
-h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-p {
-  margin: 2rem 0;
-}
-.event-tags {
-  display: flex;
-  gap: 1rem;
-  position: absolute;
-  right: 2.5rem;
-  bottom: 2.5rem;
-}
-li {
-  border: solid 1px white;
-  color: inherit;
-  padding: 0 1rem;
-  border-radius: var(--border-radius);
-  text-wrap: nowrap;
-}
-</style>

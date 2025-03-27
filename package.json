@@ -13,15 +13,18 @@
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@samk-dev/nuxt-vcalendar": "^1.0.4",
+    "dompurify": "^3.2.4",
     "google-fonts": "^1.0.0",
+    "marked": "^15.0.7",
     "nuxt": "^3.14.1592",
+    "swiper": "^11.2.6",
     "vue": "latest",
     "vue-router": "latest",
-    "vue3-carousel-nuxt": "^1.1.5",
     "vue3-google-login": "^2.0.33"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.1.0",
+    "@tailwindcss/typography": "^0.5.16",
     "element-plus": "^2.8.8"
   }
 }
