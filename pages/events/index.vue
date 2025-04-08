@@ -3,18 +3,42 @@
 <!----------------------------------->
 
 <template>
-  <div id="events">
-    <ImageCarousel :images="images" :numSlides="4" class="my-20" />
-    <h1 class="mx-16 my-8">
+  <div>
+    <ImageCarousel
+      :images="images"
+      :numSlides="numSlides"
+      class="my-20 m-auto"
+    />
+    <h1 class="my-8 m-auto sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20">
       這些課程和活動，都是我們一起創造的精彩時刻，期待你也能加入！
     </h1>
-    <div class="grid grid-cols-3 gap-6 my-16">
+    <div class="container my-16 m-auto">
       <EventCard v-for="event in events" :key="event.title" :event="event" />
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+const width = ref(0);
+const updateWidth = () => {
+  if (typeof window !== 'undefined') {
+    width.value = window.innerWidth;
+  }
+};
+onMounted(() => {
+  updateWidth();
+  window.addEventListener('resize', updateWidth);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateWidth);
+});
+const numSlides = computed(() => {
+  if (width.value < 600) return 1;
+  else if (width.value < 800) return 2;
+  else if (width.value < 1000) return 3;
+  return 4;
+});
+
 const images = Array.from({ length: 10 }, (_, index) => ({
   id: index + 1,
   url: `https://picsum.photos/800/600?random=${index + 1}`,
@@ -78,3 +102,14 @@ const events = [
   },
 ];
 </script>
+
+<style scoped>
+h1 {
+  font-size: clamp(1rem, calc(3vw + 1rem), 5rem);
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+</style>
