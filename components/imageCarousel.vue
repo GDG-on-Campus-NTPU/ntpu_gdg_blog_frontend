@@ -4,7 +4,8 @@
 
 <template>
   <Swiper
-    :modules="[Pagination, Autoplay]"
+    :modules="[Pagination, Autoplay, EffectFade]"
+    :effect="effect"
     :pagination="{ clickable: true }"
     :autoplay="{ delay: 3000, disableOnInteraction: false }"
     :slides-per-view="numSlides"
@@ -19,11 +20,12 @@
 
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
-defineProps(['images', 'numSlides']);
+defineProps(['images', 'numSlides', 'effect']);
 </script>
 
 <style scoped>

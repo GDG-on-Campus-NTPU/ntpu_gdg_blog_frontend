@@ -12,7 +12,11 @@
     >
       <button class="absolute top-4 right-6 text-2xl" @click="close">×</button>
       <div class="flex w-full min-h-[60vh] gap-4 my-12">
-        <ImageCarousel class="flex-1 size-[50vh]" :images="images" />
+        <ImageCarousel
+          class="flex-1 size-[50vh]"
+          :images="images"
+          :effect="'fade'"
+        />
         <div class="flex-1 size-[50vh] flex flex-col justify-around p-4">
           <h1>{{ project.title }}</h1>
           <div class="intro-details">
@@ -33,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="flex flex-col items-center min-h-[50vh]">
+      <div class="flex flex-col items-center min-h-[80vh] justify-center">
         <h1 class="mb-20">團隊成員</h1>
         <MemberCarousel :members="members"></MemberCarousel>
       </div>

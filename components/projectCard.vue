@@ -4,12 +4,16 @@
 
 <template>
   <article class="project-card" @click="openModal(project)">
+    <p
+      class="m-6 text-center border rounded-xl w-fit mx-auto px-4 border-inherit"
+    >
+      # {{ project.category }}
+    </p>
     <img
       src="assets/img/project.jpg"
       alt="project thumbnail"
       class="rounded-[--border-radius]"
     />
-    <p class="m-6 text-center">{{ project.category }}</p>
     <h2 class="mt-6 text-2xl font-bold text-center">{{ project.title }}</h2>
   </article>
 </template>

@@ -21,6 +21,12 @@
     </div>
 
     <div class="flex gap-4 justify-center">
+      <select class="mr-28 w-20 text-center">
+        <option>年份</option>
+        <option>2025</option>
+        <option>2024</option>
+        <option>2023</option>
+      </select>
       <ul v-for="filter in filters" :key="filter">
         <li :style="{ backgroundColor: filter.color }" class="filter">
           {{ filter.tag }}
@@ -28,7 +34,7 @@
       </ul>
     </div>
 
-    <div class="grid grid-cols-3 gap-6 my-12">
+    <div class="container my-12">
       <ProjectCard
         v-for="project in projects"
         :key="project.title"
@@ -67,14 +73,69 @@ const images = Array.from({ length: 4 }, (_, index) => ({
 }));
 
 const members = [
-  { name: '施尚丞', profile: '/img/profile.png' },
-  { name: '黃意婕', profile: '/img/profile.png' },
-  { name: '楊芷捷', profile: '/img/profile.png' },
-  { name: '李芸瑄', profile: '/img/profile.png' },
-  { name: '余沁恩', profile: '/img/profile.png' },
-  { name: '陳宥任', profile: '/img/profile.png' },
-  { name: '魏琦蓁', profile: '/img/profile.png' },
-  { name: '劉晉嘉', profile: '/img/profile.png' },
+  {
+    name: '施尚丞',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    linkedin: 'https://linkedin.com/',
+    github: 'https://github.com/',
+    instagram: 'https://instagram.com/',
+  },
+  {
+    name: '黃意婕',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    github: 'https://github.com/',
+    instagram: 'https://instagram.com/',
+  },
+  {
+    name: '楊芷捷',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    linkedin: 'https://linkedin.com/',
+    instagram: 'https://instagram.com/',
+  },
+  {
+    name: '李芸瑄',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    linkedin: 'https://linkedin.com/',
+    instagram: 'https://instagram.com/',
+  },
+  {
+    name: '余沁恩',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    instagram: 'https://instagram.com/',
+  },
+  {
+    name: '陳宥任',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    linkedin: 'https://linkedin.com/',
+    instagram: 'https://instagram.com/',
+  },
+  {
+    name: '魏琦蓁',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    github: 'https://github.com/',
+  },
+  {
+    name: '劉晉嘉',
+    profile: '/img/profile.png',
+    major: '企業管理學系',
+    info: '個人介紹經驗實習專長個人介紹經驗實習專長個人介紹經驗實習專長',
+    github: 'https://github.com/',
+    instagram: 'https://instagram.com/',
+  },
 ];
 
 const projects = [
@@ -156,5 +217,10 @@ const projects = [
   border: solid 1px;
   padding: 5px 10px;
   border-radius: var(--border-radius);
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 </style>
