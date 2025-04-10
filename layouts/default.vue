@@ -12,7 +12,7 @@
             <li><NuxtLink to="/events">課程活動</NuxtLink></li>
             <li><NuxtLink to="/contact">聯絡我們</NuxtLink></li>
           </ul>
-          <NuxtLink v-if="false" to="/profile" class="auth-links"
+          <NuxtLink v-if="isLoggedIn" to="/profile" class="auth-links"
             >個人檔案</NuxtLink
           >
           <NuxtLink v-else to="/login" class="auth-links">登入</NuxtLink>
@@ -33,6 +33,17 @@
 </template>
 
 <script setup lang="ts">
+const { data: isLoggedIn, refresh: refreshLoginStatus } = useFetch(
+  '/api/login/check',
+  {
+    method: 'GET',
+    transform: (data: { isLoggedIn: boolean }) => {
+      return data.isLoggedIn;
+    },
+  }
+);
+useNuxtApp().provide('refreshLoginStatus', refreshLoginStatus);
+
 function scrollToTop(): void {
   window.scrollTo({
     top: 0,
