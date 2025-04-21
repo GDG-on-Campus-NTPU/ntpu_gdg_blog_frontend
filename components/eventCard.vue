@@ -4,7 +4,7 @@
 
 <template>
   <NuxtLink to="/events/event">
-    <article class="event-card" @click="openModal(event)">
+    <article class="event-card">
       <h2 class="text-2xl font-bold leading-[1.25]">
         {{ event.title }}
       </h2>

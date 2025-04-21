@@ -15,8 +15,6 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     'google-fonts',
-    'vue3-carousel-nuxt',
-    '@samk-dev/nuxt-vcalendar'
   ],
   css: ['@/assets/css/main.css'],
   routeRules: {
