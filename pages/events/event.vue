@@ -1,18 +1,16 @@
 <template>
   <div class="my-20 flex flex-col">
-    <h1
-      class="text-center text-4xl"
-      v-for="(line, index) in splitTitle"
-      :key="index"
-    >
-      {{ line }}
-    </h1>
-
-    <div class="flex gap-8 justify-center h-[50vh] mt-8">
-      <img class="flex-1" src="/img/workshop.png" />
-      <div class="flex-2">
+    <div class="flex w-full h-[50vh] gap-16">
+      <div class="flex flex-col flex-2 justify-center">
+        <h1
+          class="text-center text-4xl"
+          v-for="(line, index) in splitTitle"
+          :key="index"
+        >
+          {{ line }}
+        </h1>
         <div
-          class="flex gap-8 rounded-br-[--border-radius] items-center px-8 py-4 shadow-lg"
+          class="mt-8 flex gap-8 rounded-br-[--border-radius] items-center px-8 py-4 shadow-lg"
         >
           <div>
             <img class="rounded-full size-[100px]" src="/img/profile.png" />
@@ -32,12 +30,8 @@
             </ul>
           </div>
         </div>
-        <div class="flex flex-col text-2xl font-bold mt-20">
-          <small v-for="(detail, index) in splitDetails" :key="index">
-            {{ detail }}
-          </small>
-        </div>
       </div>
+      <img class="flex-1" src="/img/workshop.png" />
     </div>
 
     <!-- Table of Contents -->
@@ -48,10 +42,7 @@
       <h2 class="text-center">講座內容摘要</h2>
       <ul class="mt-2 space-y-1">
         <li v-for="item in tableOfContents" :key="item.id">
-          <button
-            @click="scrollToSection(item.id)"
-            class="text-blue-600 hover:underline"
-          >
+          <button @click="scrollToSection(item.id)">
             {{ item.text }}
           </button>
         </li>

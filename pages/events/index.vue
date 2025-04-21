@@ -41,7 +41,9 @@ const numSlides = computed(() => {
 
 const images = Array.from({ length: 10 }, (_, index) => ({
   id: index + 1,
-  url: `https://picsum.photos/800/600?random=${index + 1}`,
+  url: `https://cdn.jsdelivr.net/gh/chi-chen-wei/GDG_NTPU_assets@main/photos/photo-${
+    index + 1
+  }.jpg`,
 }));
 
 const events = [
