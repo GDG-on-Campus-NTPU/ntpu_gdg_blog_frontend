@@ -17,30 +17,38 @@
     </section>
     <section class="about">
       <h1>我們在做...</h1>
-      <div class="about-grid">
-        <div
-          v-for="(item, index) in aboutItems"
-          :key="index"
-          class="about-grid-item box-design"
-        >
-          <span>{{ item.title }}</span>
-          <NuxtLink :to="item.link">更多內容...</NuxtLink>
-        </div>
-      </div>
-    </section>
-    <section class="events">
-      <h1>Calendar</h1>
-      <div class="events-overview">
-        <div class="events-calendar box-design">
-          <h2>近期活動</h2>
-          <div>
-            <client-only>
-              <VDatePicker v-model="date" :attributes="attrs" />
-            </client-only>
+      <div class="flex gap-20 grow justify-center my-12">
+        <div class="about-grid w-[300px]">
+          <div
+            v-for="(item, index) in aboutItems"
+            :key="index"
+            class="about-grid-item box-design"
+          >
+            <span>{{ item.title }}</span>
+            <NuxtLink :to="item.link">更多內容...</NuxtLink>
           </div>
         </div>
-        <div class="events-info box-design">
-          <h2>重要活動</h2>
+        <div class="events-info box-design w-[350px]">
+          <h2 class="mt-8 text-center">重要活動</h2>
+          <div
+            class="mt-4 aspect-square w-full flex flex-col rounded-[--border-radius] bg-[#FFF3DB] border"
+          >
+            <img
+              class="h-[50%] object-cover rounded-t-[--border-radius]"
+              src="/assets/img/project.jpg"
+            />
+            <div class="h-[50%] p-4 flex flex-col gap-1">
+              <div class="tags flex gap-2">
+                <p>程式設計</p>
+                <p>Python</p>
+              </div>
+              <p class="text-lg font-bold font-[Inter]">活動主題名稱</p>
+              <span class="text-xs">April 11, 2025</span>
+              <p class="text-sm">
+                活動內文介紹活動內文介紹活動內文介紹活動內文介紹活動內文介紹活動內文介紹
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -48,23 +56,48 @@
       <h1>最新文章</h1>
       <div class="new-article box-design" v-for="i in 2" :key="i">
         <span class="line-decoration-right"></span>
-        <div class="new-article-content">
+        <NuxtLink to="/events/event" class="new-article-content">
           <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-            nostrum cupiditate mollitia dolor provident aspernatur dignissimos
-            omnis explicabo neque iste libero, consectetur, veniam ullam hic
-            voluptatibus reiciendis repudiandae, tempora tempore?
+            <h2>成為報告超人！AI 魔法召喚術</h2>
+            <p class="mt-8">學習 AI 在報告與簡報上的應用</p>
           </div>
-          <a href="#"
-            ><img src="https://via.placeholder.com/150" alt="文章預覽圖"
-          /></a>
-        </div>
+          <div class="relative">
+            <img
+              class="rounded-full"
+              src="/img/profile.png"
+              alt="speaker-image"
+            />
+            <span class="absolute w-full text-center bottom-[-2rem]"
+              >講者名</span
+            >
+          </div>
+        </NuxtLink>
         <span class="line-decoration-left"></span>
       </div>
     </section>
     <section class="team">
       <h1>開發團隊</h1>
-      <div class="box-design"></div>
+      <div class="w-full flex justify-between mt-16 gap-8 text-center">
+        <div v-for="team in teams" :key="team.title">
+          <div>
+            <span class="text-2xl block mb-4 font-bold">{{ team.title }}</span>
+            <div
+              class="flex flex-col p-4 rounded-[--border-radius] border-[2px] border-[#555555]"
+            >
+              <img
+                class="rounded-full h-[100px] w-[100px]"
+                :src="`${img_url}${team.members[0][1]}.png`"
+              />
+              <span class="mt-2 mb-4">{{ team.members[0][0] }}</span>
+              <img
+                class="rounded-full h-[100px] w-[100px]"
+                :src="`${img_url}${team.members[1][1]}.png`"
+              />
+              <span class="mt-2">{{ team.members[1][0] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -84,10 +117,49 @@ const attrs = ref([
 ]);
 
 const aboutItems = [
-  { title: '程式設計', link: '/programming' },
-  { title: '課程講座', link: '/workshops' },
   { title: '專案實作', link: '/projects' },
-  { title: '交流平台', link: '/platform' },
+  { title: '程式設計', link: '/events' },
+  { title: '課程講座', link: '/events' },
+];
+
+const img_url =
+  'https://cdn.jsdelivr.net/gh/chi-chen-wei/GDG_NTPU_assets@main/members/member-';
+const teams = [
+  {
+    title: 'PM',
+    members: [
+      ['許甄珆', 1],
+      ['施尚丞', 2],
+    ],
+  },
+  {
+    title: '行銷',
+    members: [
+      ['黃意捷', 3],
+      ['楊芷捷', 4],
+    ],
+  },
+  {
+    title: '前端',
+    members: [
+      ['陳宥任', 5],
+      ['魏琦蓁', 6],
+    ],
+  },
+  {
+    title: '後端',
+    members: [
+      ['劉晉嘉', 7],
+      ['林漢昕', 8],
+    ],
+  },
+  {
+    title: 'UIUX',
+    members: [
+      ['李芸瑄', 9],
+      ['余沁恩', 10],
+    ],
+  },
 ];
 </script>
 
@@ -106,26 +178,21 @@ const aboutItems = [
 }
 .about-grid {
   display: grid;
-  width: 90%;
-  height: 70%;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 2rem;
-  margin: 3rem auto;
   flex-grow: 1;
 }
 .about-grid-item {
   display: flex;
   flex-direction: column;
-  color: black;
-  background-color: white;
+  color: white;
+  background-color: black;
   justify-content: center;
   position: relative;
 }
-.about-grid-item:nth-child(2),
-.about-grid-item:nth-child(3) {
-  background-color: black;
-  color: white;
+.about-grid-item:nth-child(2) {
+  background-color: white;
+  color: black;
 }
 /* about-grid-item title */
 .about-grid-item span {
@@ -137,34 +204,14 @@ const aboutItems = [
 .about-grid-item a {
   position: absolute;
   text-decoration-line: underline;
-  bottom: 1rem;
+  bottom: 0.5rem;
   right: 2rem;
 }
 .about-grid-item a:hover {
   transform: scale(1.05);
 }
-.events {
-  flex-direction: column;
-}
-.events-overview {
-  margin: 3rem auto;
-  display: flex;
-  width: 100%;
-  /*height: 70%;*/
-  gap: 3rem;
-  text-align: center;
-  flex-grow: 1;
-}
-.events-calendar {
-  flex: 2;
-  padding: 0.5rem 1rem;
-}
-.events-calendar div {
-  margin-top: 2rem;
-}
 .events-info {
-  flex: 1;
-  padding: 0.5rem 1rem;
+  padding: 0 1rem;
 }
 .articles {
   flex-direction: column;
@@ -178,6 +225,7 @@ const aboutItems = [
   padding: 10px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .new-article-content {
   display: flex;
@@ -185,10 +233,10 @@ const aboutItems = [
   justify-content: space-around;
 }
 .new-article-content img {
-  width: 12rem;
+  width: 8rem;
   height: 8rem;
 }
-.new-article-content div {
+.new-article-content + div {
   font-size: 1rem;
   width: 65%; /* 調整內文寬度 */
   padding: 10px;
@@ -199,9 +247,16 @@ const aboutItems = [
   justify-content: center;
   align-items: center;
 }
-.team div {
-  width: 100%;
-  margin-top: 1rem;
-  flex-grow: 1;
+section {
+  display: flex;
+  min-height: 80vh;
+  align-items: center;
+  margin: 3rem 0;
+}
+.tags p {
+  font-size: x-small;
+  border: solid 1px;
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
 }
 </style>
