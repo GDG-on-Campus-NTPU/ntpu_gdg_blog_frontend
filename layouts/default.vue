@@ -1,29 +1,54 @@
 <template>
-  <div id="default-layout">
+  <div class="default-layout">
     <header>
-      <nav :class="{ 'navbar--hidden': !showNavbar }">
+      <nav class="nav" :class="{ 'nav--hidden': !showNav }">
         <NuxtLink to="/" @click="scrollToTop">
-          <IconsLogoGDG class="logo-header" />
+          <IconsLogoGDG class="header__logo" />
         </NuxtLink>
-        <div class="nav-items">
-          <ul>
-            <li><NuxtLink to="/about">關於我們</NuxtLink></li>
-            <li><NuxtLink to="/projects">歷年專案</NuxtLink></li>
-            <li><NuxtLink to="/events">課程活動</NuxtLink></li>
-            <li><NuxtLink to="/contact">聯絡我們</NuxtLink></li>
+
+        <button class="nav__hamburger" @click="toggleMenu">
+          <i v-if="isMenuOpen" class="bx bx-x bx-md"></i>
+          <i v-else class="bx bx-menu bx-md"></i>
+        </button>
+
+        <div class="nav__menu" :class="{ active: isMenuOpen }">
+          <!-- v-if="isMenuOpen" -->
+          <ul class="nav__list">
+            <li>
+              <NuxtLink to="/about" @click="closeMenu">關於我們</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/projects" @click="closeMenu">歷年專案</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/events" @click="closeMenu">課程活動</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink to="/contact" @click="closeMenu">聯絡我們</NuxtLink>
+            </li>
           </ul>
-          <NuxtLink v-if="isLoggedIn" to="/profile" class="auth-links"
-            >個人檔案</NuxtLink
+
+          <NuxtLink
+            v-if="isLoggedIn"
+            to="/profile"
+            class="nav__login"
+            @click="closeMenu"
           >
-          <NuxtLink v-else to="/login" class="auth-links">登入</NuxtLink>
+            個人檔案
+          </NuxtLink>
+          <NuxtLink v-else to="/login" class="nav__login" @click="closeMenu">
+            登入
+          </NuxtLink>
         </div>
       </nav>
     </header>
+
     <main>
       <slot />
     </main>
+
     <footer>
-      <IconsLogoGDG class="logo-footer" />
+      <IconsLogoGDG class="footer__logo" />
       <div>
         <p>國立臺北大學</p>
         <p>Google 學生開發者社群</p>
@@ -33,6 +58,17 @@
 </template>
 
 <script setup lang="ts">
+/*===== Hamburger menu =====*/
+const isMenuOpen = ref(false);
+
+function toggleMenu(): void {
+  isMenuOpen.value = !isMenuOpen.value;
+}
+function closeMenu(): void {
+  isMenuOpen.value = false;
+}
+
+/*===== Check login status =====*/
 const { data: isLoggedIn, refresh: refreshLoginStatus } = useFetch(
   '/api/login/check',
   {
@@ -44,6 +80,7 @@ const { data: isLoggedIn, refresh: refreshLoginStatus } = useFetch(
 );
 useNuxtApp().provide('refreshLoginStatus', refreshLoginStatus);
 
+/*===== Scroll to top of the page =====*/
 function scrollToTop(): void {
   window.scrollTo({
     top: 0,
@@ -51,8 +88,8 @@ function scrollToTop(): void {
   });
 }
 
-// show and hide nav bar based on scrolling direction
-const showNavbar = ref(true);
+/*===== Show/hide nav based on scrolling direction =====*/
+const showNav = ref(true);
 const lastScrollPosition = ref(0);
 
 function onScroll(): void {
@@ -65,9 +102,9 @@ function onScroll(): void {
     document.documentElement.scrollHeight;
 
   if (currentScrollPosition <= lingerThreshold) {
-    showNavbar.value = true;
+    showNav.value = true;
   } else if (!isAtTop && !isAtBottom) {
-    showNavbar.value = currentScrollPosition < lastScrollPosition.value;
+    showNav.value = currentScrollPosition < lastScrollPosition.value;
     lastScrollPosition.value = currentScrollPosition;
   }
 }
@@ -82,72 +119,114 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-#default-layout {
+.default-layout {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
-nav {
+
+.nav {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
-  gap: 2rem;
+  font-size: var(--medium-font-size);
+  font-weight: var(--font-semi);
+  padding: var(--sp-6);
   width: 100%;
   background: white;
   position: fixed;
+  top: 0;
+  left: 0;
   transform: translate3d(0, 0, 0);
   transition: 0.3s ease;
-  z-index: 1;
+  z-index: 10;
 }
-.navbar--hidden {
+.nav--hidden {
   transform: translate3d(0, -100%, 0);
 }
-.logo-header {
-  height: 3rem;
+.header__logo {
+  height: 2.5rem;
   width: auto;
 }
-.nav-items {
-  display: flex;
-  flex-grow: 1;
+.nav__hamburger {
+  cursor: pointer;
+}
+.nav__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   background: black;
-  border-radius: var(--border-radius);
-  padding: 0.5rem 2.5rem;
-  justify-content: space-between;
-  text-wrap: nowrap;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-12);
+  padding: var(--sp-12) 0;
 }
-.nav-items ul {
+.nav__menu.active {
   display: flex;
-  gap: 3.5rem;
 }
-nav a {
-  font-weight: bold;
-  font-size: 1.5rem;
+.nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-12);
   color: white;
 }
-nav a:hover {
+.nav__list a:hover {
   color: #f1c46a;
   transition: color 0.2s;
 }
-.auth-links {
+.nav__login {
   display: inline-block;
   padding: 0.5rem 1.5rem;
   background: white;
   color: black;
-  font-size: 1rem;
-  font-weight: bold;
+  font-size: var(--normal-font-size);
   border-radius: var(--border-radius);
-  text-align: center;
   cursor: pointer;
 }
-.auth-links:hover {
-  color: black;
+.nav__login:hover {
   transform: scale(1.05);
 }
-main {
-  margin-top: 5rem;
-  padding: 0 12%;
-  flex-grow: 1; /**/
+
+@media screen and (min-width: 768px) {
+  .nav {
+    gap: var(--sp-8);
+  }
+  .nav__hamburger {
+    display: none;
+  }
+  .nav__menu {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 2.5rem;
+    justify-content: space-between;
+    text-wrap: nowrap;
+  }
+  .nav__list {
+    flex-direction: row;
+  }
 }
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  /* 
+  margin-top: 5rem;
+  padding: 0 12%; 
+  flex-grow: 1; 
+  */
+}
+
 footer {
   display: flex;
   margin-top: auto;
@@ -157,7 +236,7 @@ footer {
   font-weight: bold;
   background: rgb(212 212 216);
 }
-.logo-footer {
+.footer__logo {
   height: 2.5rem;
   width: auto;
   background-color: white;

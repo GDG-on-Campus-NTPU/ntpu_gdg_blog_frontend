@@ -1,16 +1,12 @@
-<!------------------------------------->
-<!-- This defines the projects page. -->
-<!------------------------------------->
-
 <template>
-  <div id="projects">
-    <div class="flex gap-12 m-20">
-      <ImageCarousel class="flex-1" :images="images" />
-      <div class="flex-1 flex flex-col">
-        <h1 class="text-[2rem] border-solid border-t border-b border-black">
-          眾多的多項專案成果，並與多家業合作，促進產學合作的發展。
+  <div class="w-full side-padding">
+    <section class="projects__hero">
+      <ImageCarousel class="projects__images" :images="images" />
+      <div class="wrapper">
+        <h1 class="projects__heading">
+          眾多的專案成果，並與多家企業合作，促進產學合作的發展。
         </h1>
-        <div class="mt-4 p-4 bg-gray-200 rounded-[--border-radius] text-center">
+        <div class="projects__partners">
           <h2 class="text-2xl mb-4">歷年合作公司</h2>
           <ul class="list-disc list-inside">
             <li>和泰企業</li>
@@ -18,30 +14,36 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="flex gap-4 justify-center">
-      <select class="mr-28 w-20 text-center">
+    <div class="projects__filter">
+      <select id="year" class="projects__filter__year w-20">
         <option>年份</option>
         <option>2025</option>
         <option>2024</option>
         <option>2023</option>
       </select>
-      <ul v-for="filter in filters" :key="filter">
-        <li :style="{ backgroundColor: filter.color }" class="filter">
-          {{ filter.tag }}
+
+      <ul class="projects__filter__tags">
+        <li
+          v-for="tag in tags"
+          :key="tag"
+          :style="{ backgroundColor: tag.color }"
+          class="tag no-select"
+        >
+          {{ tag.name }}
         </li>
       </ul>
     </div>
 
-    <div class="container my-12">
+    <section class="grid-container">
       <ProjectCard
         v-for="project in projects"
         :key="project.title"
         :project="project"
         @selected="openModal"
       />
-    </div>
+    </section>
 
     <ProjectModal
       v-if="selectedProject"
@@ -60,10 +62,10 @@ const openModal = (project) => {
   selectedProject.value = project;
 };
 
-const filters = [
-  { tag: '跨校合作', color: '#E5F8D5' },
-  { tag: '開源合作', color: '#FFD1D5' },
-  { tag: '社團提案', color: '#CFD9F5' },
+const tags = [
+  { name: '跨校合作', color: '#E5F8D5' },
+  { name: '開源合作', color: '#FFD1D5' },
+  { name: '社團提案', color: '#CFD9F5' },
 ];
 
 const images = Array.from({ length: 4 }, (_, index) => ({
@@ -148,6 +150,7 @@ const projects = [
     endDate: 'Present',
     members: members,
     images: images,
+    year: 2024,
   },
   {
     title: 'Linux Odyssey',
@@ -213,14 +216,72 @@ const projects = [
 </script>
 
 <style scoped>
-.filter {
+.projects__hero {
+  display: flex;
+  gap: var(--sp-12);
+  margin: var(--sp-12) 0 var(--sp-6);
+}
+.projects__images {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.projects__heading {
+  font-size: clamp(1.5rem, calc(1.5vw + 1rem), 3.5rem);
+  line-height: normal;
+  padding: var(--sp-4) 0;
+  /*
+  background-image: conic-gradient(red,blue,red);
+  animation: 1s spin linear infinite;
+  */
+  border-top: solid;
+  border-bottom: solid;
+}
+.projects__partners {
+  padding: var(--sp-4);
+  background: lightgray;
+  text-align: center;
+  border-radius: var(--border-radius);
+}
+.projects__filter {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--sp-12);
+}
+.projects__filter__tags {
+  display: flex;
+  gap: 1rem;
+}
+.tag {
   border: solid 1px;
   padding: 5px 10px;
   border-radius: var(--border-radius);
 }
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+@media screen and (max-width: 768px) {
+  .projects__hero {
+    flex-direction: column;
+  }
+  .projects__images {
+    width: 100%;
+  }
+  .projects__filter__tags {
+    flex-direction: column;
+    height: calc(1rem + 20px);
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+  }
+  .tag {
+    scroll-snap-align: center;
+  }
+}
+.image {
+  mix-blend-mode: multiply; /* or screen, overlay, etc. */
+  background-color: white;
 }
 </style>

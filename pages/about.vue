@@ -1,103 +1,62 @@
 <template>
-  <div>
-    <section class="flex justify-end">
-      <img
-        class="object-fit rounded-full outline outline-red-400 absolute left-[50px] h-[65%]"
-        src="/img/about-photo.png"
-        alt="thumbnail"
-      />
-      <div class="w-1/2">
-        <h1 class="mb-[3rem]">關於我們</h1>
-        <p class="leading-[28px]">
+  <div class="side-padding">
+    <section class="about section">
+      <div class="flex-1">
+        <img class="about__photo" src="/img/about-photo.png" alt="thumbnail" />
+      </div>
+
+      <div class="about__text">
+        <h1 class="big-heading">關於我們</h1>
+        <p style="line-height: 28px">
           Google Developer Groups on Campus NTPU 是由 Google
           官方支持的學生科技社群，我們致力於推廣 Google 技術與開發資源，
           並打造一個讓學生跨域學習、實作專案、連結職涯的開放平台。 我們相信
-          <strong class="font-bold"
-            ><span class="text-blue-500">科技</span> ×
-            <span class="text-red-500">創意</span> ×
-            <span class="text-green-600">社群</span> </strong
+          <strong
+            ><span style="color: var(--color-blue)">科技</span> ×
+            <span style="color: var(--color-red)">創意</span> ×
+            <span style="color: var(--color-green)">社群</span> </strong
           >，能改變學生的未來。
           無論你來自什麼科系、有沒有技術背景，只要對科技、AI、創意實作有興趣，
           都歡迎加入，一起從零開始打造自己的作品與未來藍圖！
         </p>
       </div>
     </section>
-    <section class="flex-col relative">
-      <h1 class="self-start">核心價值</h1>
 
-      <div class="triangle-left absolute right-[-10.5rem]"></div>
-      <div
-        class="grid grid-cols-2 flex items-center justify-between w-[90%] gap-6 my-auto pb-12"
-      >
-        <!--
-        <div class="flex gap-4 w-full">
-          <div class="hexagon-wrapper basis-1/3">
-            <div
-              class="hexagon flex items-center justify-center text-red-500 font-bold"
-            >
-              激發
-            </div>
+    <section class="values section">
+      <div class="triangle-wrapper">
+        <h1 class="big-heading">核心價值</h1>
+        <div class="triangle-base left"></div>
+      </div>
+
+      <div class="values-container">
+        <div class="value-item" v-for="value in values" :key="value.name">
+          <div
+            class="hexagon basis-1/3"
+            :style="{ backgroundColor: value.color }"
+          >
+            {{ value.name }}
           </div>
           <p class="basis-2/3">
-            <strong class="block">🌱 科技入門好上手</strong>
-            <br />我們相信每個人都有學習科技的潛力。
-            <br />無論背景為何，從Python 到生成式AI，
-            <br />透過社課、工作坊、讀書會，讓零基礎的你也能找到學習起點與熱情所在。
-          </p>
-        </div>
-        -->
-        <div class="flex gap-4 w-full">
-          <div class="bg-red-500 hex basis-1/3">激發</div>
-          <p class="basis-2/3">
-            <strong class="block">🌱 科技入門好上手</strong>
-            <br />我們相信每個人都有學習科技的潛力。
-            <br />無論背景為何，從Python 到生成式AI，
-            <br />透過社課、工作坊、讀書會，讓零基礎的你也能找到學習起點與熱情所在。
-          </p>
-        </div>
-
-        <div class="flex gap-4 w-full">
-          <div class="bg-green-600 hex basis-1/3">創新</div>
-          <p class="basis-2/3">
-            <strong class="block">💡 創意實踐有舞台</strong>
-
-            <br />不只是學習，更要創造！透過內部提案、跨校合作與國際競賽等專案實作，
-            <br />將腦中的點子轉化為可被看見的作品，展現你的技術力與創造力。
-          </p>
-        </div>
-
-        <div class="flex gap-4 w-full">
-          <div class="bg-blue-500 hex basis-1/3">經驗</div>
-          <p class="basis-2/3">
-            <strong class="block">🚀 接軌產業加速器</strong>
-            <br />與 Google 專業導師交流、參訪 LINE Taiwan、參加 PM Round
-            Table……
-            <br />透過這些產業連結機會，你可以了解職場實況、提早探索適合自己的未來方向。
-          </p>
-        </div>
-
-        <div class="flex gap-4 w-full">
-          <div class="bg-yellow-400 hex basis-1/3">成長</div>
-          <p class="basis-2/3">
-            <strong class="block">📚 跨域共學 × 專案淬鍊</strong>
-            <br />不論是社課吸收新知、讀書會的共學交流，還是專案中的團隊協作
-            <br />與期末成果發表，我們致力於打造一個持續進化與自我突破的環境。
+            <strong class="block">{{ value.slogan }}</strong>
+            <br />{{ value.description }}
           </p>
         </div>
       </div>
-      <div class="triangle-right absolute left-[-10.5rem] bottom-0"></div>
-    </section>
-    <section class="flex flex-col text-center">
-      <h1 class="text-4xl font-bold mb-12">我們的活動</h1>
 
-      <div class="grid grid-cols-2 gap-6 justify-items-center">
-        <div
-          class="border-2 border-red-400 rounded-2xl py-4 px-6 flex flex-col justify-center items-center"
-        >
-          <h3 class="font-bold text-2xl mb-2">讀書會</h3>
-          <strong class="text-neutral-400 mb-2"
-            >以專案為導向的實作型讀書會</strong
-          >
+      <div class="triangle-wrapper">
+        <div class="triangle-base right"></div>
+      </div>
+    </section>
+
+    <section class="our-activities section">
+      <h1 class="big-heading">我們的活動</h1>
+
+      <div class="activities-container">
+        <div class="border-2 border-[--color-red] activity-wrapper">
+          <p class="activity-title">讀書會</p>
+          <p class="font-bold text-neutral-400 mb-2">
+            以專案為導向的實作型讀書會
+          </p>
           <p class="text-justify">
             每週依照技術主題分組推進，大家會一起拆解知識點、實作功能、互相教學與回饋。
             不論你是剛入門還是想挑戰進階主題，我們都鼓勵
@@ -106,13 +65,11 @@
           </p>
         </div>
 
-        <div
-          class="border-2 border-yellow-400 rounded-2xl p-6 flex flex-col justify-center items-center"
-        >
-          <h3 class="font-bold text-2xl mb-2">社課</h3>
-          <strong class="text-neutral-400 mb-2"
-            >從零開始也能玩轉科技的主題課程</strong
-          >
+        <div class="border-2 border-[--color-yellow] activity-wrapper">
+          <p class="activity-title">社課</p>
+          <p class="font-bold text-neutral-400 mb-2">
+            從零開始也能玩轉科技的主題課程
+          </p>
           <p class="text-justify">
             每週四晚上的社課，是我們的核心活動。課程設計由幹部與業界導師共同規劃，
             <span class="text-yellow-400">從入門工具到熱門技術</span
@@ -122,13 +79,11 @@
           </p>
         </div>
 
-        <div
-          class="border-2 border-green-600 rounded-2xl p-6 flex flex-col justify-center items-center"
-        >
-          <h3 class="font-bold text-2xl mb-2">專案</h3>
-          <strong class="text-neutral-400 mb-2"
-            >把想法做出來，把作品帶出場</strong
-          >
+        <div class="border-2 border-[--color-green] activity-wrapper">
+          <p class="activity-title">專案</p>
+          <p class="font-bold text-neutral-400 mb-2">
+            把想法做出來，把作品帶出場
+          </p>
           <p class="text-justify">
             我們鼓勵每位社員參與實作專案，無論是<span class="text-green-600"
               >自發提案、內部共創、或產學合作</span
@@ -140,50 +95,127 @@
         </div>
 
         <div
-          class="bg-blue-500 text-white rounded-2xl p-6 w-full flex flex-col items-center text-left"
+          class="w-full bg-[--color-blue] rounded-2xl p-6 flex flex-col justify-center items-center text-white text-center"
         >
-          <p class="text-xl my-auto">無論科系背景，歡迎熱愛科技的你加入。</p>
-          <button
-            class="bg-red-400 text-white px-4 py-2 rounded-full font-semibold shadow-md hover:bg-red-500 transition-all"
+          <p class="text-xl">無論科系背景，歡迎熱愛科技的你加入。</p>
+          <a
+            href="https://www.instagram.com/gdg.ntpu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-red-400 text-white px-4 py-2 rounded-full font-semibold shadow-md hover:bg-red-500 transition-all mt-6"
           >
             JOIN US!
-          </button>
+          </a>
         </div>
       </div>
     </section>
   </div>
 </template>
 
-<style scoped></style>
+<script setup lang="ts">
+const values = [
+  {
+    color: 'var(--color-red)',
+    name: '激發',
+    slogan: '🌱 科技入門好上手',
+    description:
+      '我們相信每個人都有學習科技的潛力。 無論背景為何，從 Python 到生成式 AI，透過社課、工作坊、讀書會，讓零基礎的你也能找到學習起點與熱情所在。',
+  },
+  {
+    color: 'var(--color-green)',
+    name: '創新',
+    slogan: '💡 創意實踐有舞台',
+    description:
+      '不只是學習，更要創造！透過內部提案、跨校合作與國際競賽等專案實作，將腦中的點子轉化為可被看見的作品，展現你的技術力與創造力。',
+  },
+  {
+    color: 'var(--color-blue)',
+    name: '經驗',
+    slogan: '🚀 接軌產業加速器',
+    description:
+      '與 Google 專業導師交流、參訪企業、業界人士分享，透過這些產業連結機會，你可以了解職場實況、提早探索適合自己的未來方向。',
+  },
+  {
+    color: 'var(--color-yellow)',
+    name: '成長',
+    slogan: '📚 跨域共學 × 專案淬鍊',
+    description:
+      '不論是社課吸收新知、讀書會的共學交流，還是專案中的團隊協作與期末成果發表，我們致力於打造一個持續進化與自我突破的環境。',
+  },
+];
+</script>
 
 <style scoped>
-li {
-  display: flex;
+.about {
   flex-direction: column;
+  gap: var(--sp-12);
+}
+.about__photo {
+  border-radius: 100%;
+  outline: 3px solid var(--color-red);
+  width: 80%;
+  height: 80%;
+  max-width: 400px;
+  max-height: 400px;
+  aspect-ratio: 1/1;
+  object-position: center;
+  margin: 0 auto;
+}
+.about__text {
+  flex: 1;
+}
+.big-heading {
+  margin-bottom: var(--sp-12);
+  font-weight: bold;
+}
+.values {
+  flex-direction: column;
+  position: relative;
+}
+.triangle-wrapper {
+  width: 100%;
+  display: flex;
   align-items: center;
+  position: relative;
 }
-.triangle-left {
+.triangle-base {
   width: 0;
   height: 0;
   border-top: 8rem solid transparent;
   border-bottom: 8rem solid transparent;
+  position: absolute;
+}
+.left {
   border-right: 12rem solid #ffe153;
+  left: 100%;
 }
-
-.triangle-right {
-  width: 0;
-  height: 0;
-  border-top: 8rem solid transparent;
-  border-bottom: 8rem solid transparent;
+.right {
   border-left: 12rem solid #ffe153;
+  left: 0;
+  translate: -100% 0;
 }
-.icon {
-  padding: 1rem;
-  border: 2px solid #ffe153;
-  border-radius: 5px;
-  margin-bottom: 1rem;
+.values-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-items: center;
+  width: 90%;
+  gap: 2.5rem;
+  margin: auto 0;
+  padding-bottom: 3rem;
 }
-.hex {
+.value-item {
+  display: flex;
+  gap: var(--sp-8);
+  width: 100%;
+  align-items: center;
+  text-align: justify;
+  line-height: normal;
+}
+.value-item strong {
+  font-size: 1.15rem;
+  text-wrap: nowrap;
+}
+.hexagon {
   clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   display: flex;
   align-items: center;
@@ -191,17 +223,53 @@ li {
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
-}
-.hexagon-wrapper {
-  background-color: #ef4444;
-  padding: 4px;
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-}
-
-.hexagon {
-  background-color: white;
   width: 100%;
   height: 100%;
-  clip-path: inherit;
+  max-width: 175px;
+  max-height: 175px;
+  aspect-ratio: 1/1;
+}
+.our-activities {
+  flex-direction: column;
+}
+.activities-container {
+  display: grid;
+  grid-template-columns: 1;
+  gap: 2rem;
+}
+.activity-wrapper {
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.activity-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: var(--sp-2);
+}
+@media screen and (min-width: 1000px) {
+  .about {
+    flex-direction: row;
+  }
+  .about__photo {
+    width: 100%;
+    height: 100%;
+  }
+  .about__text {
+    margin: 0 var(--sp-6) 0 var(--sp-12);
+  }
+  .values-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hexagon {
+    min-width: 150px;
+    min-height: 150px;
+  }
+  .activities-container {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
 }
 </style>

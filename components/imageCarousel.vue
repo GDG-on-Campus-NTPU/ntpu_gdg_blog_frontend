@@ -36,6 +36,7 @@ defineProps(['images', 'numSlides', 'effect']);
 .swiper-slide {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .swiper-pagination-bullet {
   background: #fff;

@@ -45,7 +45,7 @@ h2 {
 .tag {
   border: solid 1px white;
   color: inherit;
-  padding: 0 1rem;
+  padding: 5px 10px;
   border-radius: var(--border-radius);
   text-wrap: nowrap;
 }

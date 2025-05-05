@@ -53,6 +53,8 @@ const hover = ref(false);
   position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  min-width: 96px;
 }
 .member__info {
   display: none;

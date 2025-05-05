@@ -1,28 +1,29 @@
 <template>
-  <div id="platform">
-    <div class="slogan">
-      <h2>
-        我們致力於打造一個，<br />
-        文組入門的科技社群平台，<br />
-        給予開發者交流討論的環境。
-      </h2>
-    </div>
-    <div class="social-links">
-      <div v-for="(link, index) in links" :key="index" class="social-link-item">
-        <a :href="link.link" target="_blank" rel="noopener noreferrer"
-          ><div class="flex flex-col gap-6 items-center">
-            <img :src="link.src" alt="logo" /><span>{{
-              link.description
-            }}</span>
-          </div></a
-        >
-      </div>
+  <div>
+    <h1 class="medium-heading text-center">
+      我們致力於打造一個文組<br />
+      也能輕鬆入門的科技社群平台，<br />
+      提供開發者交流與討論的友善環境。
+    </h1>
+    <div class="contact__menu">
+      <a
+        v-for="(contact, index) in contacts"
+        :key="index"
+        :href="contact.link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="flex flex-col gap-6 items-center">
+          <img class="w-20 h-20" :src="contact.src" alt="logo" />
+          <span class="text-nowrap">{{ contact.description }} </span>
+        </div>
+      </a>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const links = [
+const contacts = [
   {
     src: '/icons/instagram.png',
     link: 'https://www.instagram.com/gdg.ntpu/',
@@ -47,26 +48,23 @@ const links = [
 </script>
 
 <style scoped>
-#platform {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 8rem;
-}
-.social-links {
-  align-items: center;
+.contact__menu {
   margin: 5rem auto;
-  justify-content: center;
   display: grid;
   width: 90%;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: var(--sp-8);
 }
-.social-links div {
-  margin: 0 auto;
-}
-img {
-  width: 5rem;
-  height: 5rem;
+@media screen and (max-width: 768px) {
+  .contact__menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  img {
+    width: 4rem;
+    height: 4rem;
+  }
+  span {
+    font-size: var(--small-font-size);
+  }
 }
 </style>

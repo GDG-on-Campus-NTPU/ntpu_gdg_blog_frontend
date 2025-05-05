@@ -1,24 +1,17 @@
-<!----------------------------------->
-<!-- This defines the events page. -->
-<!----------------------------------->
-
 <template>
-  <div>
-    <ImageCarousel
-      :images="images"
-      :numSlides="numSlides"
-      class="my-20 m-auto"
-    />
-    <h1 class="my-8 m-auto sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20">
+  <div class="w-full">
+    <ImageCarousel :images="images" :numSlides="numSlides" class="mt-8" />
+    <h1 class="big-heading side-padding">
       這些課程和活動，都是我們一起創造的精彩時刻，期待你也能加入！
     </h1>
-    <div class="container my-16 m-auto">
+    <section class="grid-container side-padding">
       <EventCard v-for="event in events" :key="event.title" :event="event" />
-    </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
+/*===== Determines how many images to show =====*/
 const width = ref(0);
 const updateWidth = () => {
   if (typeof window !== 'undefined') {
@@ -29,7 +22,7 @@ onMounted(() => {
   updateWidth();
   window.addEventListener('resize', updateWidth);
 });
-onBeforeUnmount(() => {
+onUnmounted(() => {
   window.removeEventListener('resize', updateWidth);
 });
 const numSlides = computed(() => {
@@ -106,12 +99,7 @@ const events = [
 </script>
 
 <style scoped>
-h1 {
-  font-size: clamp(1rem, calc(3vw + 1rem), 5rem);
-}
-.container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+.big-heading {
+  margin: 5rem var(--sp-8);
 }
 </style>

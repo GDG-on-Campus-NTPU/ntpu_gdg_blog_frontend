@@ -8,6 +8,16 @@ if (process.env.API_URL == undefined) {
 }
 
 export default defineNuxtConfig({
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css',
+        },
+      ],
+    },
+  },
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
   modules: [
@@ -16,10 +26,16 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts',
     'google-fonts',
   ],
-  css: ['@/assets/css/main.css'],
+  css: ['normalize.css', '@/assets/css/main.css'],
   routeRules: {
     '/api/**': {
       proxy: { to: `${apiUrl}/**`, fetchOptions: { redirect: 'manual' } },
+    },
+    '/image/**': {
+      proxy: {
+        to: `https://drive.google.com/drive-viewer/**`,
+        fetchOptions: { redirect: 'manual' },
+      },
     },
   },
   googleFonts: {

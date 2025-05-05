@@ -12,9 +12,11 @@
   "dependencies": {
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "boxicons": "^2.1.4",
     "dompurify": "^3.2.4",
     "google-fonts": "^1.0.0",
     "marked": "^15.0.7",
+    "normalize.css": "^8.0.1",
     "nuxt": "^3.14.1592",
     "swiper": "^11.2.6",
     "vue": "latest",
