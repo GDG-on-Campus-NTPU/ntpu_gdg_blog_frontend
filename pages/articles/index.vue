@@ -5,7 +5,11 @@
       這些課程和活動，都是我們一起創造的精彩時刻，期待你也能加入！
     </h1>
     <section class="grid-container side-padding">
-      <EventCard v-for="event in events" :key="event.title" :event="event" />
+      <ArticleCard
+        v-for="article in articles"
+        :key="article.title"
+        :article="article"
+      />
     </section>
   </div>
 </template>
@@ -39,7 +43,7 @@ const images = Array.from({ length: 10 }, (_, index) => ({
   }.jpg`,
 }));
 
-const events = [
+const articles = [
   {
     title: 'Google Cloud Study Jam: Gen AI 特別篇',
     description: '深入了解 Google Cloud 的生成式 AI',

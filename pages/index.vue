@@ -29,40 +29,32 @@
           </div>
         </div>
 
-        <div class="events-info box-design w-[350px]">
+        <div class="event-info box-design w-[350px]">
           <h2 class="medium-heading mb-4">重要活動</h2>
 
-          <div
-            class="my-auto aspect-square w-full flex flex-col rounded-[--border-radius] bg-[#FFF3DB] border"
-          >
-            <img
-              class="h-[50%] object-cover rounded-t-[--border-radius]"
-              src="/assets/img/project.jpg"
-            />
-            <div class="h-[50%] p-4 flex flex-col gap-1">
-              <div class="tags flex gap-2">
-                <p>程式設計</p>
-                <p>Python</p>
-              </div>
-              <p class="text-lg font-bold font-[Inter]">活動主題名稱</p>
-              <span class="text-xs">April 11, 2025</span>
-              <p class="text-sm">
-                活動內文介紹活動內文介紹活動內文介紹活動內文介紹活動內文介紹活動內文介紹
-              </p>
-            </div>
-          </div>
+          <EventCard :event="event" @selected="openModal"></EventCard>
+          <EventModal
+            v-if="selectedEvent"
+            :event="selectedEvent"
+            @close="selectedEvent = null"
+          ></EventModal>
         </div>
       </div>
     </section>
 
     <section class="articles section">
       <h1 class="big-heading">最新文章</h1>
-      <div class="new-article box-design" v-for="i in 2" :key="i">
+      <NuxtLink
+        :to="`/articles/${article.id}`"
+        class="new-article box-design"
+        v-for="article in topTwoArticles"
+        :key="article.title"
+      >
         <span class="line-decoration-right"></span>
-        <NuxtLink to="/events/event" class="new-article-content">
-          <div>
-            <h2 class="h2__heading">成為報告超人！AI 魔法召喚術</h2>
-            <p class="mt-4">學習 AI 在報告與簡報上的應用</p>
+        <div class="new-article-content">
+          <div class="w-[65%]">
+            <h2 class="medium-heading">{{ article.title }}</h2>
+            <p class="mt-4">{{ article.description }}</p>
           </div>
           <div class="relative">
             <img
@@ -70,13 +62,13 @@
               src="/img/profile.png"
               alt="speaker-image"
             />
-            <span class="absolute w-full text-center bottom-[-2rem]"
-              >講者名</span
-            >
+            <span class="absolute w-full text-center bottom-[-2rem]">{{
+              article.author
+            }}</span>
           </div>
-        </NuxtLink>
+        </div>
         <span class="line-decoration-left"></span>
-      </div>
+      </NuxtLink>
     </section>
 
     <section class="team section">
@@ -120,29 +112,56 @@
 </template>
 
 <script setup lang="ts">
+interface Article {
+  id: string;
+  title: string;
+  date: Date;
+  author: string;
+  description: string;
+}
+
+const {
+  data: articles,
+  pending,
+  error,
+} = await useFetch<Article[]>('/api/article/all');
+
+const topTwoArticles = computed(() => {
+  if (!articles.value) return [];
+
+  return [...articles.value]
+    .sort((a, b) => {
+      return new Date(b.time).getTime() - new Date(a.time).getTime();
+    })
+    .slice(0, 2);
+});
+
+const selectedEvent = ref(null);
+
+const openModal = (event) => {
+  selectedEvent.value = event;
+};
+const event = {
+  title: 'LINE Bot 系列社課',
+  thumbnail:
+    'https://res.cloudinary.com/dvjrsbnrd/image/upload/v1746176424/cld-sample-4.jpg',
+  description: `上週課程中，我們已學會藉由 LINE Bot 進行自動回覆、利用 API 進行網路搜尋與 Gemini 回覆，以及運用 Python 套件製作圖表。
+這週社課將帶領你們用 Firebase 賦予 LINE Bot 記憶力，從申請 Firebase 憑證、資料讀寫，到與 Gemini 結合，讓聊天機器人也能擔任你們的小秘書📝！
+課程最後也會分享開發 LINE Bot 的小技巧，讓大家創造出更智慧且更貼近使用者的互動體驗🙋‍♀️！`,
+  date: new Date(),
+  tags: 'Firebase, 儲存記憶',
+};
 function ScrollRight(): void {
   document.getElementById('team')?.scrollBy(140, 0);
 }
 function ScrollLeft(): void {
   document.getElementById('team')?.scrollBy(-140, 0);
 }
-import { ref } from '#imports';
-const date = ref(new Date());
-const attrs = ref([
-  {
-    key: 'today',
-    highlight: {
-      color: 'green',
-      fillMode: 'solid',
-    },
-    dates: new Date(),
-  },
-]);
 
 const aboutItems = [
   { title: '專案實作', link: '/projects' },
-  { title: '程式設計', link: '/events' },
-  { title: '課程講座', link: '/events' },
+  { title: '程式設計', link: '/articles' },
+  { title: '課程講座', link: '/articles' },
 ];
 
 const img_url =
@@ -228,7 +247,7 @@ const subteams = [
   color: black;
 }
 .about-grid-item span,
-.events-info h2 {
+.event-info h2 {
   font-weight: bold;
   text-align: center;
 }
@@ -241,7 +260,7 @@ const subteams = [
 .about-grid-item a:hover {
   transform: scale(1.05);
 }
-.events-info {
+.event-info {
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
@@ -261,30 +280,19 @@ const subteams = [
   width: 100%;
 }
 .new-article-content {
+  width: 90%;
   display: flex;
   align-items: center;
+  margin: 0 auto;
   justify-content: space-around;
-  padding: 0 1rem;
 }
 .new-article-content img {
   width: 8rem;
   height: 8rem;
 }
-.new-article-content + div {
-  font-size: 1rem;
-  width: 65%;
-  padding: 10px;
-  text-indent: 2em;
-}
 .team {
   flex-direction: column;
   justify-content: center;
-}
-.tags p {
-  font-size: x-small;
-  border: solid 1px;
-  padding: 4px 8px;
-  border-radius: var(--border-radius);
 }
 .navigation {
   display: none;

@@ -1,52 +1,58 @@
-<!-------------------------------------------->
-<!-- This defines a single event element. -->
-<!-------------------------------------------->
-
 <template>
-  <NuxtLink to="/events/event">
-    <article class="event-card">
-      <h2 class="text-2xl font-bold leading-[1.25]">
-        {{ event.title }}
-      </h2>
-      <p class="my-8">{{ event.description }}</p>
-      <ul class="flex gap-4 absolute right-[2.5rem] bottom-[2.5rem]">
-        <li v-for="tag in event.tags" :key="tag" class="tag">{{ tag }}</li>
+  <div
+    class="event-card my-auto aspect-square w-full flex flex-col rounded-[--border-radius] bg-[#FFF3DB] border"
+    @click="openModal(event)"
+  >
+    <img
+      class="h-[50%] object-cover rounded-t-[--border-radius]"
+      :src="event.thumbnail"
+    />
+    <div class="h-[50%] p-6 flex flex-col">
+      <ul class="flex gap-2">
+        <li
+          v-for="tag in event.tags.split(',').map((tag) => tag.trim())"
+          :key="tag"
+          class="tag"
+        >
+          {{ tag }}
+        </li>
       </ul>
-    </article>
-  </NuxtLink>
+      <p class="text-lg font-bold my-2">{{ event.title }}</p>
+      <p class="text-sm description">
+        {{ event.description }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <script setup>
 defineProps(['event']);
+
+const emit = defineEmits(['selected']);
+
+const openModal = (event) => {
+  emit('selected', event);
+};
 </script>
 
 <style scoped>
-h2 {
-  font-size: clamp(1.5rem, 1.75rem, 2.5rem);
-}
 .event-card {
-  font-family: '__Inter_3e83c2,__Inter_Fallback_3e83c2';
-  background: black;
-  border-radius: var(--border-radius);
-  aspect-ratio: 1/1;
-  padding: min(2rem, 10%);
-  color: white;
-  position: relative;
-  cursor: pointer;
-  max-height: 330px;
-  width: 100%;
-}
-.event-card:hover {
-  background: lightgray;
-  transition: 0.5s;
-  color: black;
-  border: solid 1px black;
+  width: 300px;
+  height: 300px;
+  margin: auto;
 }
 .tag {
-  border: solid 1px white;
-  color: inherit;
-  padding: 5px 10px;
+  font-size: x-small;
+  border: solid 1px;
+  padding: 4px 8px;
   border-radius: var(--border-radius);
-  text-wrap: nowrap;
+}
+.description {
+  flex-grow: 1;
+  overflow: hidden;
+}
+.event-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 4px 4px #fff3db;
 }
 </style>

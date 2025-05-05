@@ -21,7 +21,7 @@
               <NuxtLink to="/projects" @click="closeMenu">歷年專案</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/events" @click="closeMenu">課程活動</NuxtLink>
+              <NuxtLink to="/articles" @click="closeMenu">課程活動</NuxtLink>
             </li>
             <li>
               <NuxtLink to="/contact" @click="closeMenu">聯絡我們</NuxtLink>
@@ -84,7 +84,6 @@ useNuxtApp().provide('refreshLoginStatus', refreshLoginStatus);
 function scrollToTop(): void {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth',
   });
 }
 
