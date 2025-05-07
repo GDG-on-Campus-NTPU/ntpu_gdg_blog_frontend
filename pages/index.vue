@@ -32,7 +32,14 @@
         <div class="event-info box-design w-[350px]">
           <h2 class="medium-heading mb-4">重要活動</h2>
 
-          <EventCard :event="event" @selected="openModal"></EventCard>
+          <EventCard
+            v-if="event"
+            :event="event"
+            @selected="openModal"
+          ></EventCard>
+          <div v-else class="medium-heading m-auto text-neutral-400 italic">
+            近期無活動
+          </div>
           <EventModal
             v-if="selectedEvent"
             :event="selectedEvent"
@@ -120,11 +127,7 @@ interface Article {
   description: string;
 }
 
-const {
-  data: articles,
-  pending,
-  error,
-} = await useFetch<Article[]>('/api/article/all');
+const { data: articles } = await useFetch<Article[]>('/api/article/all');
 
 const topTwoArticles = computed(() => {
   if (!articles.value) return [];
@@ -136,21 +139,26 @@ const topTwoArticles = computed(() => {
     .slice(0, 2);
 });
 
-const selectedEvent = ref(null);
+interface Activity {
+  thumbnail: string;
+  title: string;
+  date: Date;
+  description: string;
+  tags: Array<string>;
+}
+const today = new Date().toISOString();
+const { data: events, error } = await useFetch<Activity[]>(
+  `/api/activity?startDate=${today}&endDate=2025-12-31T23:59:59Z&num=1`
+);
 
-const openModal = (event) => {
+const event = computed(() => events.value?.[0] || null);
+
+const selectedEvent = ref<Activity | null>(null);
+
+const openModal = (event: Activity) => {
   selectedEvent.value = event;
 };
-const event = {
-  title: 'LINE Bot 系列社課',
-  thumbnail:
-    'https://res.cloudinary.com/dvjrsbnrd/image/upload/v1746176424/cld-sample-4.jpg',
-  description: `上週課程中，我們已學會藉由 LINE Bot 進行自動回覆、利用 API 進行網路搜尋與 Gemini 回覆，以及運用 Python 套件製作圖表。
-這週社課將帶領你們用 Firebase 賦予 LINE Bot 記憶力，從申請 Firebase 憑證、資料讀寫，到與 Gemini 結合，讓聊天機器人也能擔任你們的小秘書📝！
-課程最後也會分享開發 LINE Bot 的小技巧，讓大家創造出更智慧且更貼近使用者的互動體驗🙋‍♀️！`,
-  date: new Date(),
-  tags: 'Firebase, 儲存記憶',
-};
+
 function ScrollRight(): void {
   document.getElementById('team')?.scrollBy(140, 0);
 }

@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="/articles/article">
+  <NuxtLink :to="`/articles/${article.id}`">
     <article class="article-card">
       <h2 class="text-2xl font-bold leading-[1.25]">
         {{ article.title }}

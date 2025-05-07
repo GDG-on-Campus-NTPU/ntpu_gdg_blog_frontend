@@ -1,6 +1,6 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content no-scrollbar">
+    <div class="modal-content no-scrollbar max-h-[90vh] overflow-y-scroll">
       <button class="close-btn" @click="close">×</button>
       <img
         class="rounded-[--border-radius]"
@@ -11,15 +11,13 @@
         {{ event.title }}
       </h2>
       <ul class="flex gap-2 justify-center">
-        <li
-          v-for="tag in event.tags.split(',').map((tag) => tag.trim())"
-          :key="tag"
-          class="tag"
-        >
+        <li v-for="tag in event.tags" :key="tag" class="tag">
           {{ tag }}
         </li>
       </ul>
-      <p class="text-center text-neutral-400 my-4">{{ event.date }}</p>
+      <p class="text-center text-neutral-400 my-4">
+        {{ event.date.split('T')[0] }}
+      </p>
       <p>{{ event.description }}</p>
     </div>
   </div>

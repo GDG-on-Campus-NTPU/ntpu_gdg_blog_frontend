@@ -1,11 +1,12 @@
 <template>
-  <div v-if="article" class="side-padding">
+  <div v-if="article" class="w-full side-padding">
+    <button @click="scrollToSection('toc')" class="button">^</button>
     <div class="workshop__header">
       <div class="workshop__info">
         <h1 class="workshop__title">
           {{ article.title }}
         </h1>
-        <div class="workshop__speaker-card">
+        <div v-if="article.author" class="workshop__speaker-card">
           <div class="speaker">
             <img class="speaker__photo" src="/img/profile.png" />
             <p class="speaker__name">
@@ -14,7 +15,7 @@
           </div>
           <div class="speaker__details">
             <p class="text-sm font-bold">{{ splitDetails[0] }}</p>
-            <ul class="list-inside list-disc text-xs mt-[10%]">
+            <ul class="speaker__experience">
               <li
                 v-for="(experience, index) in splitDetails.slice(1)"
                 :key="index"
@@ -28,7 +29,7 @@
       <img class="workshop__image" :src="firstImage" />
     </div>
 
-    <div v-if="tableOfContents.length" class="workshop__toc">
+    <div v-if="tableOfContents.length" id="toc" class="workshop__toc">
       <h2 class="text-center">講座內容摘要</h2>
       <ul class="mt-2 space-y-1">
         <li v-for="item in tableOfContents" :key="item.id">
@@ -43,6 +44,7 @@
       <div class="w-full max-w-none prose mt-2" v-html="previewContent"></div>
     </div>
   </div>
+  <div v-else-if="error">Article Not Found</div>
   <div v-else>Loading...</div>
 </template>
 
@@ -50,7 +52,9 @@
 import { useRoute, useAsyncData } from '#app';
 
 const route = useRoute();
-const { data: article } = await useFetch(`/api/article/${route.params.slug}`);
+const { data: article, error } = await useFetch(
+  `/api/article/${route.params.slug}`
+);
 
 import { marked } from 'marked';
 
@@ -75,9 +79,13 @@ const renderer = {
             </h${depth}>`;
   },
   image({ href, title, alt }) {
+    const caption = title
+      ? `<span class="text-center text-sm text-neutral-400">${title}</span>`
+      : '';
+
     return `<div class="flex flex-col items-center">
     <img src=${href} alt=${alt}  />
-    <span class="text-center text-sm text-neutral-400">${title}</span>
+     ${caption}
     </div>`;
   },
 };
@@ -109,7 +117,7 @@ if (article.value) {
 const scrollToSection = (id) => {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 };
 </script>
@@ -120,7 +128,11 @@ const scrollToSection = (id) => {
   display: flex;
   flex-direction: column;
 }
-
+.default__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .workshop__header {
   display: flex;
   gap: 4rem;
@@ -173,10 +185,18 @@ const scrollToSection = (id) => {
 .speaker__details {
   flex: 2;
 }
-
+.speaker__experience {
+  list-style-type: disc;
+  list-style-position: inside;
+  font-size: 0.75rem; /* Tailwind's text-xs */
+  margin-top: 10%;
+  line-height: normal;
+}
 .workshop__image {
   flex: 1;
+  max-width: 50%;
   object-fit: cover;
+  align-self: center;
 }
 
 .workshop__toc {
@@ -185,6 +205,22 @@ const scrollToSection = (id) => {
   align-self: center;
   margin: 5rem 0 4rem;
   padding: 2rem;
+}
+.button {
+  font-size: x-large;
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+  border-radius: 10px;
+  opacity: 50%;
+}
+.button:hover {
+  cursor: pointer;
+  opacity: 100%;
+  box-shadow: 0 0 1px 1px lightgray;
 }
 @media (max-width: 1000px) {
   .workshop__header {
@@ -197,6 +233,7 @@ const scrollToSection = (id) => {
   }
   .workshop__image {
     width: auto;
+    max-width: 100%;
     margin-top: 1rem;
     max-height: 300px;
   }

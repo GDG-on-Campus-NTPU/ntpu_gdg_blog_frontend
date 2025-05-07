@@ -15,6 +15,15 @@
 </template>
 
 <script setup lang="ts">
+const { data } = await useFetch('/api/article/all');
+
+const articles = computed(() => {
+  if (!data.value) return [];
+
+  return [...data.value].sort((a, b) => {
+    return new Date(a.time).getTime() - new Date(b.time).getTime();
+  });
+});
 /*===== Determines how many images to show =====*/
 const width = ref(0);
 const updateWidth = () => {
@@ -42,7 +51,7 @@ const images = Array.from({ length: 10 }, (_, index) => ({
     index + 1
   }.jpg`,
 }));
-
+/*
 const articles = [
   {
     title: 'Google Cloud Study Jam: Gen AI 特別篇',
@@ -100,6 +109,7 @@ const articles = [
     tags: ['n8n', '智能工作流'],
   },
 ];
+*/
 </script>
 
 <style scoped>

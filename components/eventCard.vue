@@ -9,11 +9,7 @@
     />
     <div class="h-[50%] p-6 flex flex-col">
       <ul class="flex gap-2">
-        <li
-          v-for="tag in event.tags.split(',').map((tag) => tag.trim())"
-          :key="tag"
-          class="tag"
-        >
+        <li v-for="tag in event.tags" :key="tag" class="tag">
           {{ tag }}
         </li>
       </ul>
