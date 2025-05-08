@@ -40,7 +40,7 @@ const contacts = [
     description: '加入 GDG Taipei 社群',
   },
   {
-    src: '/icons/mail.png',
+    src: '/icons/mailbox.png',
     link: 'mailto:ntpugdsc@gmail.com',
     description: '寫信給我們',
   },
