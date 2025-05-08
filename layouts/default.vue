@@ -3,7 +3,7 @@
     <header>
       <nav class="nav" :class="{ 'nav--hidden': !showNav }">
         <NuxtLink to="/" @click="scrollToTop">
-          <IconsLogoGDG class="header__logo" />
+          <IconsLogoGDG class="gdgLogo" />
         </NuxtLink>
 
         <button class="nav__hamburger" @click="toggleMenu">
@@ -48,7 +48,7 @@
     </main>
 
     <footer>
-      <IconsLogoGDG class="footer__logo" />
+      <IconsLogoGDG class="gdgLogo" />
       <div>
         <p>國立臺北大學</p>
         <p>Google 學生開發者社群</p>
@@ -145,7 +145,7 @@ onUnmounted(() => {
 .nav--hidden {
   transform: translate3d(0, -100%, 0);
 }
-.header__logo {
+.gdgLogo {
   height: 2.5rem;
   width: auto;
 }
@@ -233,12 +233,6 @@ footer {
   gap: 2rem;
   padding: 1rem 3rem;
   font-weight: bold;
-  background: rgb(212 212 216);
-}
-.footer__logo {
-  height: 2.5rem;
-  width: auto;
-  background-color: white;
-  padding: 0.25rem;
+  background: rgba(212, 212, 216, 0.7);
 }
 </style>

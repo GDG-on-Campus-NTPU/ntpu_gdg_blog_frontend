@@ -7,10 +7,19 @@
           眾多的專案成果，並與多家企業合作，促進產學合作的發展。
         </h1>
         <div class="projects__partners">
-          <h2 class="text-2xl mb-4">歷年合作公司</h2>
-          <ul class="list-disc list-inside">
-            <li>和泰企業</li>
-            <li>和泰企業</li>
+          <ul class="flex gap-6 justify-center items-center">
+            <li>
+              <img
+                src="/assets/img/Hotai_Motor_logo.svg.png"
+                alt="Hotai_Motor_logo"
+              />
+            </li>
+            <li>
+              <img
+                src="/assets/img/Line_Corporation_logo.svg.png "
+                alt="Line_Corporation_logo"
+              />
+            </li>
           </ul>
         </div>
       </div>
@@ -21,7 +30,6 @@
         <option>年份</option>
         <option>2025</option>
         <option>2024</option>
-        <option>2023</option>
       </select>
 
       <ul class="projects__filter__tags">
@@ -245,9 +253,11 @@ const projects = [
 }
 .projects__partners {
   padding: var(--sp-4);
-  background: lightgray;
-  text-align: center;
-  border-radius: var(--border-radius);
+}
+.projects__partners img {
+  height: auto;
+  width: 4rem;
+  filter: grayscale(100%);
 }
 .projects__filter {
   display: flex;

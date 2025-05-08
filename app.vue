@@ -1,5 +1,9 @@
 <template>
   <NuxtLayout>
+    <NuxtLoadingIndicator
+      :throttle="0"
+      color="linear-gradient(to right, #b936ee, #0047e1, #36e4da, #00dc82)"
+    />
     <NuxtPage />
   </NuxtLayout>
 </template>
