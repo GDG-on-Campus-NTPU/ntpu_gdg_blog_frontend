@@ -41,7 +41,7 @@ const contacts = [
   },
   {
     src: '/icons/mailbox.png',
-    link: 'mailto:ntpugdsc@gmail.com',
+    link: 'https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=ntpugdsc@gmail.com',
     description: '寫信給我們',
   },
 ];
