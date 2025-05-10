@@ -1,12 +1,10 @@
 <template>
-  <div
-    class="event-card my-auto aspect-square w-full flex flex-col rounded-[--border-radius] bg-[#FFF3DB] border"
-    @click="openModal(event)"
-  >
+  <div class="event-card border" @click="openModal(event)">
     <img
       class="h-[50%] object-cover rounded-t-[--border-radius]"
       :src="event.thumbnail"
     />
+
     <div class="h-[50%] p-6 flex flex-col">
       <ul class="flex gap-2">
         <li v-for="tag in event.tags" :key="tag" class="tag">
@@ -36,6 +34,14 @@ const openModal = (event) => {
   width: 300px;
   height: 300px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius);
+  background: #fff3db;
+}
+.event-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 4px 4px #fff3db;
 }
 .tag {
   font-size: x-small;
@@ -47,8 +53,10 @@ const openModal = (event) => {
   flex-grow: 1;
   overflow: hidden;
 }
-.event-card:hover {
-  cursor: pointer;
-  box-shadow: 0 0 4px 4px #fff3db;
+
+@media screen and (max-width: 475px) {
+  .event-card {
+    width: 250px;
+  }
 }
 </style>

@@ -3,7 +3,7 @@
     <header>
       <nav class="nav" :class="{ 'nav--hidden': !showNav }">
         <NuxtLink to="/" @click="scrollToTop">
-          <IconsLogoGDG class="gdgLogo" />
+          <IconsLogoGDG class="logo" />
         </NuxtLink>
 
         <button class="nav__hamburger" @click="toggleMenu">
@@ -12,7 +12,6 @@
         </button>
 
         <div class="nav__menu" :class="{ active: isMenuOpen }">
-          <!-- v-if="isMenuOpen" -->
           <ul class="nav__list">
             <li>
               <NuxtLink to="/about" @click="closeMenu">關於我們</NuxtLink>
@@ -48,7 +47,7 @@
     </main>
 
     <footer>
-      <IconsLogoGDG class="gdgLogo" />
+      <IconsLogoGDG class="logo" />
       <div>
         <p>國立臺北大學</p>
         <p>Google 學生開發者社群</p>
@@ -145,8 +144,8 @@ onUnmounted(() => {
 .nav--hidden {
   transform: translate3d(0, -100%, 0);
 }
-.gdgLogo {
-  height: 2.5rem;
+.logo {
+  height: 2rem;
   width: auto;
 }
 .nav__hamburger {
@@ -181,7 +180,6 @@ onUnmounted(() => {
   display: inline-block;
   padding: 0.5rem 1.5rem;
   background: white;
-  color: black;
   font-size: var(--normal-font-size);
   border-radius: var(--border-radius);
   cursor: pointer;
@@ -190,9 +188,33 @@ onUnmounted(() => {
   transform: scale(1.05);
 }
 
-@media screen and (min-width: 768px) {
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+footer {
+  display: flex;
+  margin-top: auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 1.5rem;
+  font-weight: bold;
+  background: rgba(212, 212, 212, 0.7);
+  color: var(--color-off-black);
+  font-size: small;
+}
+
+@media screen and (min-width: 860px) {
   .nav {
     gap: var(--sp-8);
+  }
+  .logo {
+    height: 2.5rem;
   }
   .nav__hamburger {
     display: none;
@@ -210,29 +232,8 @@ onUnmounted(() => {
   .nav__list {
     flex-direction: row;
   }
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-  /* 
-  margin-top: 5rem;
-  padding: 0 12%; 
-  flex-grow: 1; 
-  */
-}
-
-footer {
-  display: flex;
-  margin-top: auto;
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem 3rem;
-  font-weight: bold;
-  background: rgba(212, 212, 216, 0.7);
+  footer {
+    font-size: var(--normal-font-size);
+  }
 }
 </style>

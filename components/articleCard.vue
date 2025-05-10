@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="`/articles/${article.id}`">
     <article class="article-card">
-      <h2 class="text-2xl font-bold leading-[1.25]">
+      <h2 class="text-2xl font-bold leading-[1.5]">
         {{ article.title }}
       </h2>
       <p class="my-8">{{ article.description }}</p>
@@ -17,12 +17,8 @@ defineProps(['article']);
 </script>
 
 <style scoped>
-h2 {
-  font-size: clamp(1.5rem, 1.75rem, 2.5rem);
-}
 .article-card {
-  font-family: '__Inter_3e83c2,__Inter_Fallback_3e83c2';
-  background: black;
+  background: var(--color-off-black);
   border-radius: var(--border-radius);
   aspect-ratio: 1/1;
   padding: min(2rem, 10%);
@@ -31,12 +27,12 @@ h2 {
   cursor: pointer;
   max-height: 330px;
   width: 100%;
+  border: solid 1px black;
 }
 .article-card:hover {
   background: lightgray;
   transition: 0.5s;
   color: black;
-  border: solid 1px black;
 }
 .tag {
   border: solid 1px white;

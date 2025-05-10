@@ -1,5 +1,4 @@
 :root {
-  --header-height: 5rem;
   --border-radius: 3rem;
   /*===== Colors =====*/ /* hue first second */
   --color-blue: #4285f4;
@@ -7,6 +6,7 @@
   --color-yellow: #fbbc05;
   --color-green: #0f9d58; /* 34a853 */
   --color-neutral: #a3a3a3;
+  --color-off-black: #202020;
   /*===== Typography =====*/
   --body-font: 'Noto Sans TC', sans-serif;
   --big-font-size: 2rem;
@@ -21,25 +21,7 @@
   --sp-8: 2rem;
   --sp-10: 2.5rem;
   --sp-12: 3rem;
-  /*===== z index =====*/
-  --z-back: -10;
-  --z-fixed: 100;
 }
-
-/* @media screen and (min-width: 480px) {} */
-@media screen and (min-width: 767px) {
-  /* 600px */
-  /*
-  :root {
-    --big-font-size: 3.5rem;
-    --h2-font-size: 2rem;
-    --normal-font-size: 1rem;
-    --smaller-font-size: .875rem;
-  }
-  */
-}
-/* @media screen and (min-width: 1024px) {} */
-/* @media screen and (min-width: 1280px) {} */
 
 /*===== BASE =====*/
 body {
@@ -51,10 +33,7 @@ body {
 img {
   max-width: 100%;
   height: auto;
-  aspect-ratio: 4/3;
-  object-fit: cover;
 }
-
 /*===== LAYOUT =====*/
 .side-padding {
   padding: 0 12%;
@@ -94,27 +73,3 @@ img {
 .no-wrap {
   text-wrap: nowrap;
 }
-/* xs */
-@media (min-width: 475px) {
-}
-/* sm */
-@media (min-width: 640px) {
-}
-/* md */
-@media (min-width: 768px) {
-}
-/* lg */
-@media (min-width: 1024px) {
-}
-/* xl */
-@media (min-width: 1280px) {
-}
-/* 2xl */
-@media (min-width: 1536px) {
-}
-
-/*padding: min(rem,%)
-font: clamp(min, vw+rem, max)
-hamburger menu: nav inert-->
-<!--container: width90%
-margin 0 auto*/

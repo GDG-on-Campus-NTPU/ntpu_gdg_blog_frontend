@@ -1,6 +1,6 @@
 <template>
   <div class="modal-overlay" @click.self="close">
-    <div class="modal-content no-scrollbar max-h-[90vh] overflow-y-scroll">
+    <div class="modal-content no-scrollbar">
       <button class="close-btn" @click="close">×</button>
       <img
         class="rounded-[--border-radius]"
@@ -49,14 +49,14 @@ const close = () => emit('close');
   border-radius: var(--border-radius);
   max-width: 600px;
   width: 90%;
+  max-height: 90vh;
   position: relative;
+  overflow-y: scroll;
 }
 .close-btn {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  background: none;
-  border: none;
   font-size: 1.5rem;
   cursor: pointer;
 }

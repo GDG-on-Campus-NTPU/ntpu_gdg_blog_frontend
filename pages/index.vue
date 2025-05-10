@@ -1,7 +1,7 @@
 <template>
   <div class="w-full side-padding">
     <section class="hero section">
-      <img src="/assets/svg/orbit.svg" alt="orbit animation" />
+      <img loading="lazy" src="/assets/svg/orbit.svg" alt="orbit animation" />
       <div>
         <h1 class="big-heading">我們是...</h1>
         <h2 class="medium-heading">Google 學生開發者社群<br />國立臺北大學</h2>
@@ -24,22 +24,23 @@
             :key="index"
             class="about-grid-item box-design"
           >
-            <span class="medium-heading">{{ item.title }}</span>
+            <span class="medium-heading font-bold text-center">
+              {{ item.title }}
+            </span>
             <NuxtLink :to="item.link">更多內容...</NuxtLink>
           </div>
         </div>
 
-        <div class="event-info box-design w-[350px]">
-          <h2 class="medium-heading mb-4">重要活動</h2>
-
+        <div class="event-info box-design">
+          <h2 class="medium-heading font-bold text-center mb-4">重要活動</h2>
           <EventCard
             v-if="event"
             :event="event"
             @selected="openModal"
           ></EventCard>
-          <div v-else class="medium-heading m-auto text-neutral-400 italic">
+          <p v-else class="medium-heading m-auto text-neutral-400 italic">
             近期無活動
-          </div>
+          </p>
           <EventModal
             v-if="selectedEvent"
             :event="selectedEvent"
@@ -57,44 +58,39 @@
         v-for="article in topTwoArticles"
         :key="article.title"
       >
-        <span class="line-decoration-right"></span>
+        <span class="line-decoration self-end"></span>
         <div class="new-article-content">
           <div class="w-[65%]">
-            <h2 class="medium-heading">{{ article.title }}</h2>
+            <p class="medium-heading">{{ article.title }}</p>
             <p class="mt-4">{{ article.description }}</p>
           </div>
           <div class="relative">
             <img
               class="rounded-full"
-              src="/img/profile.png"
+              :src="article.authorImage"
               alt="speaker-image"
             />
-            <span class="absolute w-full text-center bottom-[-2rem]">{{
-              article.author
-            }}</span>
+            <span class="absolute w-full text-center bottom-[-2rem]">
+              {{ article.author }}
+            </span>
           </div>
         </div>
-        <span class="line-decoration-left"></span>
+        <span class="line-decoration"></span>
       </NuxtLink>
     </section>
 
     <section class="team section">
       <h1 class="big-heading">開發團隊</h1>
-      <div class="w-full my-12 flex gap-4 justify-center items-center">
+      <div class="w-full flex my-12 gap-4 justify-center items-center">
         <button class="navigation" @click="ScrollLeft()">&lt;</button>
-        <div
-          id="team"
-          class="flex gap-8 text-center team-container no-scrollbar p-2"
-        >
+        <div id="team" class="team-container no-scrollbar p-2">
           <div
             class="sub-team"
             v-for="subteam in subteams"
             :key="subteam.title"
           >
             <div>
-              <span class="block medium-heading font-bold">{{
-                subteam.title
-              }}</span>
+              <p class="medium-heading font-bold">{{ subteam.title }}</p>
               <div
                 class="flex flex-col py-4 w-[136px] items-center rounded-[--border-radius] border-2 border-[#555555] my-4"
               >
@@ -119,11 +115,13 @@
 </template>
 
 <script setup lang="ts">
+/*===== Get newest articles =====*/
 interface Article {
   id: string;
   title: string;
-  date: Date;
+  time: Date;
   author: string;
+  authorImage: string;
   description: string;
 }
 
@@ -138,7 +136,20 @@ const topTwoArticles = computed(() => {
     })
     .slice(0, 2);
 });
+/*
+const topTwoArticles = computed(() => {
+  if (!articles.value) return [];
+  return articles.value
+    .reduce((acc, curr) => {
+      if (acc.length < 2) acc.push(curr);
+      // Always keep the two most recent articles
+      acc.sort((a, b) => new Date(b.time) - new Date(a.time)); 
+      return acc;
+    }, []);
+});
+*/
 
+/*===== Get upcoming event =====*/
 interface Activity {
   thumbnail: string;
   title: string;
@@ -146,9 +157,9 @@ interface Activity {
   description: string;
   tags: Array<string>;
 }
-const today = new Date().toISOString();
+const today = new Date().toISOString().slice(0, 11);
 const { data: events, error } = await useFetch<Activity[]>(
-  `/api/activity?startDate=${today}&endDate=2025-12-31T23:59:59Z&num=1`
+  `/api/activity?startDate=${today}00:00:00Z&endDate=2025-12-31T23:59:59Z&num=1`
 );
 
 const event = computed(() => events.value?.[0] || null);
@@ -159,6 +170,14 @@ const openModal = (event: Activity) => {
   selectedEvent.value = event;
 };
 
+/*===== What we do section =====*/
+const aboutItems = [
+  { title: '專案實作', link: '/projects' },
+  { title: '程式設計', link: '/articles' },
+  { title: '課程講座', link: '/articles' },
+];
+
+/*===== Dev team element scrolling controller =====*/
 function ScrollRight(): void {
   document.getElementById('team')?.scrollBy(140, 0);
 }
@@ -166,12 +185,7 @@ function ScrollLeft(): void {
   document.getElementById('team')?.scrollBy(-140, 0);
 }
 
-const aboutItems = [
-  { title: '專案實作', link: '/projects' },
-  { title: '程式設計', link: '/articles' },
-  { title: '課程講座', link: '/articles' },
-];
-
+/*===== Dev team data =====*/
 const img_url =
   'https://cdn.jsdelivr.net/gh/chi-chen-wei/GDG_NTPU_assets@main/members/member-';
 const subteams = [
@@ -216,16 +230,15 @@ const subteams = [
 <style scoped>
 .hero {
   gap: 3rem;
-  justify-content: center;
 }
 .big-heading {
   font-weight: bold;
 }
 .hero p {
   margin-top: 1.5rem;
-  text-align: justify;
   text-wrap: nowrap;
 }
+
 .about {
   flex-direction: column;
 }
@@ -234,6 +247,7 @@ const subteams = [
   gap: 5rem;
   flex-grow: 1;
   margin: 2rem auto;
+  justify-content: center;
 }
 .about-grid {
   display: grid;
@@ -254,11 +268,6 @@ const subteams = [
   background-color: white;
   color: black;
 }
-.about-grid-item span,
-.event-info h2 {
-  font-weight: bold;
-  text-align: center;
-}
 .about-grid-item a {
   position: absolute;
   text-decoration-line: underline;
@@ -272,11 +281,13 @@ const subteams = [
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  width: 350px;
 }
+
 .articles {
   flex-direction: column;
   width: 90%;
-  padding: 10px;
+  max-width: 900px;
   margin: 3rem auto;
 }
 .new-article {
@@ -286,6 +297,12 @@ const subteams = [
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 250px;
+}
+.line-decoration {
+  width: 60%;
+  border: 0.5px grey solid;
+  margin: 20px;
 }
 .new-article-content {
   width: 90%;
@@ -298,31 +315,23 @@ const subteams = [
   width: 8rem;
   height: 8rem;
 }
+
 .team {
   flex-direction: column;
-  justify-content: center;
 }
 .navigation {
   display: none;
 }
 .team-container {
+  display: flex;
+  text-align: center;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  gap: 2rem;
 }
 .sub-team {
   scroll-snap-align: center;
-}
-.line-decoration-left {
-  width: 60%;
-  border: 0.5px grey solid;
-  margin: 20px;
-}
-.line-decoration-right {
-  width: 60%;
-  border: 0.5px grey solid;
-  margin: 20px;
-  align-self: flex-end;
 }
 
 @media screen and (max-width: 1064px) {
@@ -331,6 +340,9 @@ const subteams = [
   }
 }
 @media screen and (max-width: 1000px) {
+  .hero {
+    gap: 1rem;
+  }
   .hero img {
     width: 400px;
   }
@@ -338,6 +350,7 @@ const subteams = [
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
   }
   .about-grid-item span {
     font-size: 1.5rem;
@@ -367,6 +380,15 @@ const subteams = [
   }
   .new-article-content span {
     font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 475px) {
+  .team-container {
+    width: 150px;
+    overflow-x: hidden;
+  }
+  .event-info {
+    width: 300px;
   }
 }
 </style>

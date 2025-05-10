@@ -1,6 +1,6 @@
 <template>
-  <div class="flex h-[70dvh]">
-    <ElCard class="m-auto w-full sm:w-5/6 md:w-3/4 lg:w-1/2 xl:w-1/3">
+  <div class="flex h-[70dvh] w-full">
+    <ElCard class="m-auto w-1/2">
       <template #header>
         <ElText>個人資料</ElText>
       </template>

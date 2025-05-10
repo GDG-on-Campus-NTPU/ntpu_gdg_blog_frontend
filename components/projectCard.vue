@@ -1,7 +1,3 @@
-<!-------------------------------------------->
-<!-- This defines a single project element. -->
-<!-------------------------------------------->
-
 <template>
   <article class="project-card" @click="openModal(project)">
     <p
@@ -32,11 +28,11 @@ const openModal = (project) => {
 .project-card {
   border-radius: var(--border-radius);
   padding: 2rem;
-  border: solid 1px grey;
+  border: solid 1px var(--color-neutral);
 }
 .project-card:hover {
   color: white;
-  background: black;
+  background: var(--color-off-black);
   transition: 0.5s;
   cursor: pointer;
 }
