@@ -11,7 +11,7 @@
         <div class="flex-1 w-full min-h-fit flex flex-col justify-center p-4">
           <h2 class="big-heading">{{ project.title }}</h2>
           <div class="intro-details">
-            <ul class="flex gap-4">
+            <ul class="flex gap-4 my-6">
               <li
                 :style="getCategoryStyle(project.category)"
                 class="project-tags"

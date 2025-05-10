@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
+    '@nuxtjs/cloudinary',
     'google-fonts',
   ],
   css: ['normalize.css', '@/assets/css/main.css'],
@@ -50,6 +51,13 @@ export default defineNuxtConfig({
           clientId: process.env.GOOGLE_CLIENT_ID,
         },
       },
+      cloudinary: {
+        cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+      },
+    },
+    cloudinary: {
+      apiKey: process.env.CLOUDINARY_API_KEY,
+      apiSecret: process.env.CLOUDINARY_API_SECRET,
     },
   },
 });

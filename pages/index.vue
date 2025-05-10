@@ -82,33 +82,38 @@
     <section class="team section">
       <h1 class="big-heading">開發團隊</h1>
       <div class="w-full flex my-12 gap-4 justify-center items-center">
-        <button class="navigation" @click="ScrollLeft()">&lt;</button>
+        <button
+          class="navigation"
+          @click="ScrollLeft()"
+          aria-label="Scroll left"
+        >
+          &lt;
+        </button>
         <div id="team" class="team-container no-scrollbar p-2">
           <div
             class="sub-team"
             v-for="subteam in subteams"
             :key="subteam.title"
           >
-            <div>
-              <p class="medium-heading font-bold">{{ subteam.title }}</p>
-              <div
-                class="flex flex-col py-4 w-[136px] items-center rounded-[--border-radius] border-2 border-[#555555] my-4"
-              >
-                <img
-                  class="rounded-full h-[100px] w-[100px]"
-                  :src="`${img_url}${subteam.members[0][1]}.png`"
-                />
-                <span class="mt-2 mb-4">{{ subteam.members[0][0] }}</span>
-                <img
-                  class="rounded-full h-[100px] w-[100px]"
-                  :src="`${img_url}${subteam.members[1][1]}.png`"
-                />
-                <span class="mt-2">{{ subteam.members[1][0] }}</span>
-              </div>
+            <p class="medium-heading font-bold">{{ subteam.title }}</p>
+            <div
+              class="flex flex-col py-4 w-[136px] h-[330px] justify-center gap-4 items-center rounded-[--border-radius] border-2 border-[#555555] my-4"
+            >
+              <MemberBasic
+                v-for="member in subteam.members"
+                :key="member.name"
+                :member="member"
+              ></MemberBasic>
             </div>
           </div>
         </div>
-        <button class="navigation" @click="ScrollRight()">&gt;</button>
+        <button
+          class="navigation"
+          @click="ScrollRight()"
+          aria-label="Scroll right"
+        >
+          &gt;
+        </button>
       </div>
     </section>
   </div>
@@ -186,42 +191,75 @@ function ScrollLeft(): void {
 }
 
 /*===== Dev team data =====*/
-const img_url =
-  'https://cdn.jsdelivr.net/gh/chi-chen-wei/GDG_NTPU_assets@main/members/member-';
 const subteams = [
   {
     title: 'PM',
     members: [
-      ['許甄珆', 1],
-      ['施尚丞', 2],
+      {
+        name: '許甄珆',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864376/member-1_c42mar.png',
+      },
+      {
+        name: '施尚丞',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864376/member-2_zqjr3z.png',
+      },
     ],
   },
   {
     title: '行銷',
     members: [
-      ['黃意捷', 3],
-      ['楊芷捷', 4],
+      {
+        name: '黃意捷',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864376/member-3_rrk7fp.png',
+      },
+      {
+        name: '楊芷捷',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864377/member-4_ehskfp.png',
+      },
     ],
   },
   {
     title: '前端',
     members: [
-      ['陳宥任', 5],
-      ['魏琦蓁', 6],
+      {
+        name: '陳宥任',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864377/member-5_uzdsrn.png',
+      },
+      {
+        name: '魏琦蓁',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864377/member-6_xh2o3n.png',
+      },
     ],
   },
   {
     title: '後端',
     members: [
-      ['劉晉嘉', 7],
-      ['林漢昕', 8],
+      {
+        name: '劉晉嘉',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746866625/member-7_g8gyqk.png',
+      },
     ],
   },
   {
     title: 'UIUX',
     members: [
-      ['李芸瑄', 9],
-      ['余沁恩', 10],
+      {
+        name: '李芸瑄',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864376/member-9_axbpft.png',
+      },
+      {
+        name: '余沁恩',
+        profile:
+          'https://res.cloudinary.com/gdg-ntpu/image/upload/v1746864376/member-10_wucf9l.png',
+      },
     ],
   },
 ];
@@ -334,7 +372,7 @@ const subteams = [
   scroll-snap-align: center;
 }
 
-@media screen and (max-width: 1064px) {
+@media screen and (max-width: 1078px) {
   .navigation {
     display: block;
   }

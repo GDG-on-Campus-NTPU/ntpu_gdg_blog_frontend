@@ -1,17 +1,6 @@
-<!------------------------------------>
-<!-- This shows each member's info. -->
-<!------------------------------------>
-
 <template>
   <div class="container" @mouseover="hover = true" @mouseleave="hover = false">
-    <div class="member">
-      <img
-        :src="member.profile"
-        alt="profile image"
-        class="w-24 h-24 rounded-full"
-      />
-      <strong class="mt-2 text-lg font-semibold">{{ member.name }}</strong>
-    </div>
+    <MemberBasic class="member mb-8" :member="member"></MemberBasic>
     <div class="member__info" v-if="hover">
       <p class="text-sm font-black text-center">{{ member.major }}</p>
       <p class="text-xs font-thin mt-4 text-justify">{{ member.info }}</p>
@@ -37,13 +26,8 @@ const hover = ref(false);
 
 <style scoped>
 .member {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   transform: scale(1);
   transition: transform 0.3s;
-  margin-bottom: 2rem;
 }
 .member:hover {
   transform: scale(1.2);
@@ -55,6 +39,7 @@ const hover = ref(false);
   flex-direction: column;
   flex-shrink: 0;
   min-width: 96px;
+  scroll-snap-align: center;
 }
 .member__info {
   display: none;
@@ -68,17 +53,6 @@ const hover = ref(false);
   padding: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
-  /*
-  clip-path: polygon(
-    40% 20%,
-    50% 0%,
-    60% 20%,
-    100% 20%,
-    100% 100%,
-    0% 100%,
-    0% 20%
-  );
-  */
 }
 .member__info::before {
   content: '';
