@@ -67,7 +67,7 @@
           <div class="relative">
             <img
               class="rounded-full"
-              :src="article.authorImage"
+              :src="article.authorImage || '/img/profile.png'"
               alt="speaker-image"
             />
             <span class="absolute w-full text-center bottom-[-2rem]">
