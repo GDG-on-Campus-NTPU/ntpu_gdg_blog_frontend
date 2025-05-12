@@ -20,6 +20,9 @@
                 alt="Line_Corporation_logo"
               />
             </li>
+            <li>
+              <img src="assets/img/Google_logo.svg.png" alt="Google_logo" />
+            </li>
           </ul>
         </div>
       </div>
@@ -255,8 +258,9 @@ const projects = [
   padding: var(--sp-4);
 }
 .projects__partners img {
-  height: auto;
-  width: 4rem;
+  height: 2.5rem;
+  width: auto;
+  object-fit: contain;
   filter: grayscale(100%);
 }
 .projects__filter {
@@ -288,6 +292,9 @@ const projects = [
   }
   .tag {
     scroll-snap-align: center;
+  }
+  .projects__partners img {
+    height: 2rem;
   }
 }
 .image {

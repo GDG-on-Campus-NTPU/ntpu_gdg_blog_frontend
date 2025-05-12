@@ -120,6 +120,7 @@ function scrollRight() {
   }
   .images {
     width: 100%;
+    min-height: 200px;
   }
 }
 @media screen and (max-width: 475px) {

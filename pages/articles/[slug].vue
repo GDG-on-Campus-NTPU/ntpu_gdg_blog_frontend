@@ -1,6 +1,8 @@
 <template>
   <div v-if="article" class="w-full side-padding">
-    <button @click="scrollToSection('toc')" class="button">^</button>
+    <button v-if="contentInView" @click="scrollToTOC" class="button">
+      <i class="bx bx-chevrons-up"></i>
+    </button>
     <div class="workshop__header">
       <div class="workshop__info">
         <h1 class="workshop__title">
@@ -8,7 +10,11 @@
         </h1>
         <div v-if="article.author" class="workshop__speaker-card">
           <div class="speaker">
-            <img class="speaker__photo" src="/img/profile.png" />
+            <img
+              class="speaker__photo"
+              :src="article.authorImage || '/img/profile.png'"
+              alt="speaker-image"
+            />
             <p class="speaker__name">
               {{ article.author }}
             </p>
@@ -28,21 +34,18 @@
       </div>
       <img class="workshop__image" :src="firstImage" />
     </div>
-
-    <div v-if="tableOfContents.length" id="toc" class="workshop__toc">
-      <h2 class="text-center">講座內容摘要</h2>
-      <ul class="mt-2 space-y-1 w-fit mx-auto">
-        <li class="text-left" v-for="item in tableOfContents" :key="item.id">
-          <button @click="scrollToSection(item.id)">
+    <div id="toc" v-if="tableOfContents.length" class="workshop__toc">
+      <h2 class="text-center text-lg">講座內容摘要</h2>
+      <ul class="mt-2 space-y-1">
+        <li v-for="item in tableOfContents" :key="item.id">
+          <button class="text-left" @click="scrollToSection(item.id)">
             {{ item.text }}
           </button>
         </li>
       </ul>
     </div>
 
-    <div class="w-full p-4">
-      <div class="w-full prose mt-2" v-html="previewContent"></div>
-    </div>
+    <div class="w-full prose mx-auto" v-html="previewContent"></div>
   </div>
   <div v-else-if="error">Article Not Found</div>
   <div v-else>Loading...</div>
@@ -117,14 +120,43 @@ if (article.value) {
 const scrollToSection = (id) => {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    element.scrollIntoView();
   }
 };
+
+const scrollToTOC = () => {
+  const element = document.getElementById('toc');
+  if (element) {
+    const yOffset = -105;
+    const y =
+      element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+};
+
+const contentInView = ref(false);
+
+function checkInView() {
+  const element = document.getElementById('toc');
+  if (!element) return;
+  const elementTop = element.getBoundingClientRect().top + window.scrollY;
+  const scrollTop = window.scrollY;
+  contentInView.value = scrollTop > elementTop;
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', checkInView);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', checkInView);
+});
 </script>
 
 <style scoped>
 .side-padding {
-  margin: 5rem 12%;
+  margin: 2rem 12%;
   display: flex;
   flex-direction: column;
 }
@@ -138,6 +170,8 @@ const scrollToSection = (id) => {
   gap: 4rem;
   width: 100%;
   height: 50vh;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .workshop__info {
@@ -164,6 +198,9 @@ const scrollToSection = (id) => {
 }
 .speaker {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .speaker__photo {
   border-radius: 50%;
@@ -201,8 +238,7 @@ const scrollToSection = (id) => {
 
 .workshop__toc {
   background-color: #e5e7eb;
-  width: 50%;
-  margin: 5rem auto 4rem;
+  margin: 4rem auto;
   padding: 2rem;
 }
 .button {
@@ -210,7 +246,7 @@ const scrollToSection = (id) => {
   position: fixed;
   right: 2rem;
   bottom: 2rem;
-  padding: 10px;
+  padding: 5px;
   border: 1px solid black;
   background: white;
   border-radius: 10px;
@@ -235,9 +271,6 @@ const scrollToSection = (id) => {
     max-width: 100%;
     margin-top: 1rem;
     max-height: 300px;
-  }
-  .workshop__toc {
-    width: 90%;
   }
 }
 </style>
