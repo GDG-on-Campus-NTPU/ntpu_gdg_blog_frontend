@@ -2,7 +2,7 @@
   <div class="default-layout">
     <header>
       <nav class="nav" :class="{ 'nav--hidden': !showNav }">
-        <NuxtLink to="/" @click="scrollToTop">
+        <NuxtLink to="/" @click="clickLogo">
           <IconsLogoGDG class="logo" />
         </NuxtLink>
 
@@ -84,6 +84,11 @@ function scrollToTop(): void {
   window.scrollTo({
     top: 0,
   });
+}
+
+function clickLogo(): void {
+  scrollToTop();
+  closeMenu();
 }
 
 /*===== Show/hide nav based on scrolling direction =====*/

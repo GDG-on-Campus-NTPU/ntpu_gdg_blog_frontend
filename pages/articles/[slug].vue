@@ -45,7 +45,7 @@
       </ul>
     </div>
 
-    <div class="w-full prose mx-auto" v-html="previewContent"></div>
+    <div class="w-full prose mx-auto mb-4" v-html="previewContent"></div>
   </div>
   <div v-else-if="error">Article Not Found</div>
   <div v-else>Loading...</div>

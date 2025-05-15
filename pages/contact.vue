@@ -36,8 +36,8 @@ const contacts = [
   },
   {
     src: '/icons/gdgtaipei.png',
-    link: 'https://gdg.community.dev/gdg-taipei/',
-    description: '加入 GDG Taipei 社群',
+    link: 'https://gdg.community.dev/gdg-on-campus-national-taipei-university-new-taipei-taiwan/',
+    description: '加入 GDG NTPU 社群',
   },
   {
     src: '/icons/mailbox.png',
