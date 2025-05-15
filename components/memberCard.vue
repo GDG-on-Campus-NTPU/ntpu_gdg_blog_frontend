@@ -1,9 +1,13 @@
 <template>
   <div class="container" @mouseover="hover = true" @mouseleave="hover = false">
     <MemberBasic class="member mb-8" :member="member"></MemberBasic>
-    <div class="member__info" v-if="hover">
-      <p class="text-sm font-black text-center">{{ member.major }}</p>
-      <p class="text-xs font-thin mt-4 text-justify">{{ member.info }}</p>
+    <div class="member__info" v-if="hover && member.description">
+      <p v-if="member.major" class="text-sm font-black text-center">
+        {{ member.major }}
+      </p>
+      <p class="text-xs font-thin mt-4 text-justify">
+        {{ member.description }}
+      </p>
       <div class="icons">
         <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
           <IconsLinkedin />
@@ -53,6 +57,8 @@ const hover = ref(false);
   padding: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 .member__info::before {
   content: '';

@@ -12,17 +12,27 @@
           <h2 class="big-heading">{{ project.title }}</h2>
           <div class="intro-details">
             <ul class="flex gap-4 my-6">
+              <!--
               <li
                 :style="getCategoryStyle(project.category)"
                 class="project-tags"
               >
                 {{ project.category }}
               </li>
-              <!--<li v-for="tag in project.tags" :key="tag">{{ tag }}</li>-->
+              -->
+              <li
+                class="project-tags"
+                v-for="(tag, index) in project.tags"
+                :style="getCategoryStyle(index)"
+                :key="tag"
+              >
+                {{ tag }}
+              </li>
             </ul>
             <p class="my-4">{{ project.description }}</p>
             <p class="text-neutral-500">
-              專案開始執行：{{ project.startDate }} ~ {{ project.endDate }}
+              <!--專案開始執行：{{ project.startDate }} ~ {{ project.endDate }}-->
+              專案開始執行：2024 Sep ~ Present
             </p>
           </div>
         </div>
@@ -32,13 +42,28 @@
         class="w-full flex flex-col items-center min-h-[70vh] justify-center"
       >
         <h1 class="big-heading mb-20">團隊成員</h1>
-
-        <div class="w-full flex gap-4 items-start justify-center test">
-          <button class="navigation-btn" @click="scrollLeft()">&lt;</button>
-          <div id="members" class="h-[350px] w-full container no-scrollbar">
+        <div class="carousel-wrapper">
+          <button
+            v-if="showNavigation"
+            class="navigation-btn"
+            @click="scrollLeft()"
+          >
+            &lt;
+          </button>
+          <div
+            id="members"
+            ref="carousel"
+            class="h-[350px] w-fit member-container no-scrollbar"
+          >
             <MemberCarousel :members="members"></MemberCarousel>
           </div>
-          <button class="navigation-btn" @click="scrollRight()">&gt;</button>
+          <button
+            v-if="showNavigation"
+            class="navigation-btn"
+            @click="scrollRight()"
+          >
+            &gt;
+          </button>
         </div>
       </div>
     </div>
@@ -46,11 +71,11 @@
 </template>
 
 <script setup>
-defineProps(['project', 'members', 'images']);
+defineProps(['project', 'members']);
 
 const emit = defineEmits(['close']);
 const close = () => emit('close');
-
+/*
 const categoryColors = {
   業界合作: '#CFD9F5',
   社團提案: '#FFD1D5',
@@ -59,13 +84,48 @@ function getCategoryStyle(category) {
   const color = categoryColors[category] || '#FFF0D1';
   return { background: color };
 }
+*/
+const categoryColors = ['#CFD9F5', '#FFD1D5', '#E5F8D5', '#FFF0D1', '#CFEAFB'];
+
+function getCategoryStyle(index) {
+  const color = categoryColors[index];
+  return { background: color };
+}
+
+const showNavigation = ref(false);
+const carousel = ref(null);
 
 function scrollLeft() {
-  document.getElementById('members').scrollBy(-104, 0);
+  carousel.value?.scrollBy({ left: -104, behavior: 'smooth' });
 }
 function scrollRight() {
-  document.getElementById('members').scrollBy(104, 0);
+  carousel.value?.scrollBy({ left: 104, behavior: 'smooth' });
 }
+
+function checkOverflow() {
+  if (carousel.value) {
+    const containerWidth = carousel.value.getBoundingClientRect().width;
+    const scrollWidth = carousel.value.scrollWidth;
+    showNavigation.value = scrollWidth > containerWidth;
+  }
+}
+
+onMounted(() => {
+  nextTick(() => {
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+  });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkOverflow);
+});
+
+const images = Array.from({ length: 4 }, (_, index) => ({
+  id: index + 1,
+  url: `https://picsum.photos/800/600?random=${index + 1}`,
+  alt: 'alt',
+}));
 </script>
 
 <style scoped>
@@ -101,7 +161,7 @@ function scrollRight() {
   flex: 1;
   max-width: 600px;
 }
-.container {
+.member-container {
   overflow-y: hidden;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
@@ -111,8 +171,11 @@ function scrollRight() {
   margin-top: 1rem;
   height: 96px;
 }
-.test {
-  padding: -50px;
+.carousel-wrapper {
+  width: 80%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 @media screen and (max-width: 768px) {
   .hero-wrapper {
@@ -120,11 +183,10 @@ function scrollRight() {
   }
   .images {
     width: 100%;
-    min-height: 200px;
   }
 }
 @media screen and (max-width: 475px) {
-  .container {
+  .member-container {
     width: 210px;
     overflow-x: hidden;
   }

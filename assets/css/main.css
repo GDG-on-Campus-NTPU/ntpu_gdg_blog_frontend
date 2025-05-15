@@ -1,5 +1,6 @@
 :root {
   --border-radius: 3rem;
+  min-width: 300px;
   /*===== Colors =====*/ /* hue first second */
   --color-blue: #4285f4;
   --color-red: #ea4335;
